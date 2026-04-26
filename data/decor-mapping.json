@@ -34,6 +34,26 @@
   },
 
   "rules": {
+    "cuisine": {
+      "sushi": "sushi",
+      "japanese;sushi": "sushi",
+      "sushi;japanese": "sushi",
+      "pizza": "pizza",
+      "italian;pizza": "pizza",
+      "pizza;italian": "pizza",
+      "ramen": "ramen",
+      "noodle": "ramen",
+      "noodles": "ramen",
+      "japanese;ramen": "ramen",
+      "burger": "burger",
+      "ice_cream": "sweets",
+      "cake": "sweets",
+      "dessert": "sweets",
+      "donut": "sweets",
+      "coffee_shop": "cafe",
+      "tea": "cafe",
+      "bubble_tea": "cafe"
+    },
     "amenity": {
       "cafe":             "cafe",
       "restaurant":       "restaurant",
