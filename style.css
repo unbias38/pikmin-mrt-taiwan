@@ -356,6 +356,80 @@ html, body {
   cursor: pointer;
 }
 .poi-pin > span { transform: rotate(45deg); display: block; }
+
+/* ════════════════════════════════════════
+   手機 RWD（≤ 768px）
+   ════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Topbar 縮小 */
+  .topbar {
+    padding: 8px 14px;
+    height: auto;
+    min-height: 52px;
+  }
+  .brand-icon { font-size: 22px; }
+  .brand h1 { font-size: 15px; }
+  .brand p { display: none; }
+  .icon-btn { padding: 6px 10px; font-size: 11px; }
+
+  /* 主版面：垂直堆疊 */
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45vh 1fr;
+    height: calc(100vh - 52px);
+  }
+  .info-pane {
+    border-left: none;
+    border-top: 1px solid var(--bg-2);
+    padding: 12px;
+    gap: 12px;
+  }
+
+  /* 文字、卡片縮一點 */
+  .station-info { padding: 12px; }
+  .station-header h2 { font-size: 19px; }
+
+  /* 路線統計 4 格 → 2x2 */
+  .route-stats { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .stat-num { font-size: 16px; }
+
+  /* Modal 全螢幕 */
+  .modal-content {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-body { overflow-y: auto; flex: 1; }
+
+  /* 排行 modal：左右改上下 */
+  .ranking-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .ranking-left {
+    border-right: none;
+    border-bottom: 1px solid var(--bg-2);
+    max-height: 35vh;
+  }
+
+  /* 沿路車站 row：縮欄寬 */
+  .route-station-row { grid-template-columns: 1fr 30px 1fr 50px; gap: 6px; font-size: 11px; }
+
+  /* Decor list 維持 2 欄但縮 padding */
+  .decor-card { padding: 8px 10px; }
+  .decor-emoji { font-size: 18px; }
+  .decor-name { font-size: 12px; }
+  .decor-count { font-size: 10px; }
+}
+
+/* 手機橫向 / 平板：不堆疊但縮側邊欄 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr 320px; }
+}
 .decor-emoji { font-size: 20px; }
 .decor-info { flex: 1; }
 .decor-name { font-size: 13px; font-weight: 600; }
