@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unbias38.github.io/pikmin-mrt-taiwan/sitemap.xml

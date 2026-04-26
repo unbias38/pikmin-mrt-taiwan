@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1a3a2f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- 三都會路網裝飾 -->
+  <g opacity="0.45">
+    <!-- 台北：藍 / 紅 / 綠 / 橘 -->
+    <circle cx="170" cy="120" r="6" fill="#0070BD"/>
+    <circle cx="240" cy="160" r="6" fill="#E3002C"/>
+    <circle cx="310" cy="120" r="6" fill="#008659"/>
+    <circle cx="170" cy="220" r="6" fill="#F8B61C"/>
+    <line x1="170" y1="120" x2="310" y2="120" stroke="#0070BD" stroke-width="1.5"/>
+    <line x1="240" y1="160" x2="240" y2="240" stroke="#E3002C" stroke-width="1.5"/>
+
+    <!-- 台中：綠 -->
+    <circle cx="160" cy="450" r="6" fill="#008659"/>
+    <circle cx="240" cy="490" r="6" fill="#008659"/>
+    <circle cx="320" cy="540" r="6" fill="#008659"/>
+    <line x1="160" y1="450" x2="320" y2="540" stroke="#008659" stroke-width="1.5"/>
+
+    <!-- 高雄：紅 / 橘 / 環狀 -->
+    <circle cx="950" cy="120" r="6" fill="#E3002C"/>
+    <circle cx="1020" cy="160" r="6" fill="#F8B61C"/>
+    <circle cx="950" cy="220" r="6" fill="#84C341"/>
+    <circle cx="1020" cy="260" r="6" fill="#84C341"/>
+    <line x1="950" y1="120" x2="950" y2="220" stroke="#E3002C" stroke-width="1.5"/>
+    <line x1="950" y1="220" x2="1050" y2="220" stroke="#84C341" stroke-width="1.5"/>
+  </g>
+
+  <!-- 中央內容 -->
+  <text x="600" y="220" font-family="'Microsoft JhengHei', system-ui, sans-serif" font-size="84" font-weight="800" text-anchor="middle" fill="white">🌸 全台捷運</text>
+  <text x="600" y="320" font-family="'Microsoft JhengHei', system-ui, sans-serif" font-size="56" font-weight="700" text-anchor="middle" fill="url(#accent)">× Pikmin Bloom</text>
+  <text x="600" y="380" font-family="'Microsoft JhengHei', system-ui, sans-serif" font-size="32" font-weight="500" text-anchor="middle" fill="#94a3b8">攻略地圖</text>
+
+  <!-- 副標 -->
+  <text x="600" y="465" font-family="'Microsoft JhengHei', system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#cbd5e1">台北 · 台中 · 高雄 — 選站看周邊 Decor 皮克敏</text>
+  <text x="600" y="500" font-family="'Microsoft JhengHei', system-ui, sans-serif" font-size="22" text-anchor="middle" fill="#cbd5e1">AI 寫散步攻略｜200+ 站｜含環狀輕軌</text>
+
+  <!-- 底部 -->
+  <text x="600" y="585" font-family="system-ui, sans-serif" font-size="18" text-anchor="middle" fill="#64748b">Designed by 九月筍 · MIT License</text>
+</svg>
