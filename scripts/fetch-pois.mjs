@@ -100,6 +100,15 @@ out center tags;`;
   return json.elements || [];
 }
 
+function buildAddress(tags) {
+  if (tags['addr:full']) return tags['addr:full'];
+  const parts = [
+    tags['addr:city'], tags['addr:district'],
+    tags['addr:street'], tags['addr:housenumber']
+  ].filter(Boolean);
+  return parts.join(' ');
+}
+
 function processElements(elements) {
   const pois = [];
   const summary = {};
@@ -110,8 +119,23 @@ function processElements(elements) {
     const lat = e.lat ?? e.center?.lat;
     const lon = e.lon ?? e.center?.lon;
     if (lat == null || lon == null) return;
-    const name = tags['name:zh'] || tags.name || tags['name:en'] || '';
-    pois.push({ id: e.id, type: e.type, lat, lon, name, decor });
+    const poi = {
+      id: e.id,
+      type: e.type,
+      lat, lon,
+      name: tags['name:zh'] || tags.name || tags['name:en'] || '',
+      decor
+    };
+    // 選用欄位（有就存，省檔案大小）
+    const addr = buildAddress(tags);
+    if (addr) poi.addr = addr;
+    if (tags.opening_hours) poi.hours = tags.opening_hours;
+    if (tags.website || tags['contact:website']) poi.web = tags.website || tags['contact:website'];
+    if (tags.phone || tags['contact:phone']) poi.phone = tags.phone || tags['contact:phone'];
+    if (tags.brand) poi.brand = tags.brand;
+    if (tags.cuisine) poi.cuisine = tags.cuisine;
+
+    pois.push(poi);
     summary[decor] = (summary[decor] || 0) + 1;
   });
   return { pois, summary };

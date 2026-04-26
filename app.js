@@ -273,16 +273,45 @@ function togglePoiLayer(decor) {
   const list = poiData.pois.filter(p => p.decor === decor);
   if (!list.length) return;
 
-  const markers = list.map(p =>
-    L.marker([p.lat, p.lon], {
+  const markers = list.map(p => {
+    const name = p.name || '(無名稱地點)';
+    const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + p.lat + ',' + p.lon)}`;
+    const osmUrl = `https://www.openstreetmap.org/${p.type}/${p.id}`;
+    const detailRows = [
+      p.addr   ? `<div class="poi-popup-row">🏠 ${escapeHtml(p.addr)}</div>` : '',
+      p.brand  ? `<div class="poi-popup-row">🏷️ ${escapeHtml(p.brand)}</div>` : '',
+      p.cuisine? `<div class="poi-popup-row">🍽️ ${escapeHtml(p.cuisine)}</div>` : '',
+      p.hours  ? `<div class="poi-popup-row">🕐 ${escapeHtml(p.hours)}</div>` : '',
+      p.phone  ? `<div class="poi-popup-row">📞 <a href="tel:${escapeHtml(p.phone)}">${escapeHtml(p.phone)}</a></div>` : '',
+      p.web    ? `<div class="poi-popup-row">🌐 <a href="${escapeHtml(p.web)}" target="_blank" rel="noopener">官網</a></div>` : ''
+    ].filter(Boolean).join('');
+    const popupHtml = `
+      <div class="poi-popup">
+        <div class="poi-popup-header">
+          <span class="poi-popup-emoji">${meta.emoji}</span>
+          <div>
+            <div class="poi-popup-name">${escapeHtml(name)}</div>
+            <div class="poi-popup-decor">${meta.zh} Decor</div>
+          </div>
+        </div>
+        ${detailRows ? `<div class="poi-popup-details">${detailRows}</div>` : ''}
+        <div class="poi-popup-coord">📍 ${p.lat.toFixed(5)}, ${p.lon.toFixed(5)}</div>
+        <div class="poi-popup-actions">
+          <a href="${gmapsUrl}" target="_blank" rel="noopener" class="poi-popup-btn primary">在 Google Maps 開啟</a>
+          <a href="${osmUrl}" target="_blank" rel="noopener" class="poi-popup-btn">OSM 原始資料</a>
+        </div>
+      </div>`;
+    return L.marker([p.lat, p.lon], {
       icon: L.divIcon({
         html: `<div class="poi-pin"><span>${meta.emoji}</span></div>`,
         className: 'poi-pin-wrap',
         iconSize: [28, 28],
         iconAnchor: [14, 28]
       })
-    }).bindTooltip(p.name || '(無名稱)', { direction: 'top', offset: [0, -20] })
-  );
+    })
+    .bindTooltip(name, { direction: 'top', offset: [0, -22] })
+    .bindPopup(popupHtml, { className: 'poi-popup-wrap', maxWidth: 280 });
+  });
   const layer = L.layerGroup(markers).addTo(state.map);
   state.activeLayers.set(decor, layer);
   document.querySelector(`.decor-card[data-decor="${decor}"]`)?.classList.add('active');
@@ -450,6 +479,10 @@ async function callOpenAI(model, key, prompt) {
   const text = data.choices?.[0]?.message?.content;
   if (!text) throw new Error('OpenAI 回傳空白');
   return text;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
 // ─────────── 排行 Modal ───────────
