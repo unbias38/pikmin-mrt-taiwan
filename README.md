@@ -1,10 +1,14 @@
-# 台北捷運 × Pikmin Bloom 攻略地圖
+# 全台捷運 × Pikmin Bloom 攻略地圖
 
 選一站 → 查 800m 內可拿哪些 Decor 皮克敏 → AI 給散步攻略。
+**規劃支援台北、台中、高雄三個捷運系統**（目前僅台北資料就緒，台中/高雄擴展中）。
 
 ## 🌸 線上 Demo
 
-**👉 [unbias38.github.io/pikmin-mrt-taipei](https://unbias38.github.io/pikmin-mrt-taipei/)**
+**👉 [unbias38.github.io/pikmin-mrt-taiwan](https://unbias38.github.io/pikmin-mrt-taiwan/)**
+
+> 此 repo 為多城市版本，由 [pikmin-mrt-taipei](https://github.com/unbias38/pikmin-mrt-taipei) v1.0 fork 而來。
+> 台北專屬版（已凍結）：[v1.0 release](https://github.com/unbias38/pikmin-mrt-taipei/releases/tag/v1.0)
 
 開網頁 → 選任意捷運站（地圖點選或下拉搜尋）→ 看周邊 Decor 類別清單 → 點 ⚙️ 設定填 API Key → 點「生成攻略」讓 AI 給散步建議。
 
@@ -115,9 +119,18 @@ node scripts/fetch-ridership.mjs
 
 ## Roadmap
 
-- ✅ **Phase 1**：站點 × Decor 查詢
-- ✅ **Phase 2**：路線規劃（起終點 + 步行 + Decor 圖層 + LLM 導覽）
-- ✅ **Phase 3**：運量整合（人潮指數 + sparkline + 路線整段運量分析）
-- ✅ **Phase 4**：散步圈 + 限時模式
+### 台北專屬版（v1.0，已完成）
+- ✅ Phase 1-4 全功能
 - ✅ 手機 RWD
-- ⏳ **後續構想**：跨年度同期比較、平日 vs 假日、多途經點 A→B→C→A、Decor 圖鑑進度追蹤
+- ✅ 訪客計數、MIT License、九月筍 footer
+
+### 全台版（本 repo，建構中）
+- ⏳ **重構資料目錄**：data/{taipei,taichung,kaohsiung}/
+- ⏳ **城市切換器**：頂部下拉
+- ⏳ **抓台中站點 + POI**（OSM）
+- ⏳ **抓高雄站點 + POI + 輕軌**（OSM）
+- ⏳ **Lazy load**：切城市才載資料
+- ⏳ **運量區塊容錯**：沒資料就隱藏（程式已支援）
+
+### 後續構想（任一版本）
+- 跨年度同期比較、平日 vs 假日、多途經點 A→B→C→A、Decor 圖鑑進度追蹤

@@ -1233,7 +1233,7 @@ ${ridershipBlock}
 
 // ─────────── 訪客計數 ───────────
 function initVisitorCounter() {
-  fetch('https://abacus.jasoncameron.dev/hit/pikmin-mrt-taipei/total')
+  fetch('https://abacus.jasoncameron.dev/hit/pikmin-mrt-taiwan/total')
     .then(r => r.json())
     .then(d => {
       const n = d.value || 0;
