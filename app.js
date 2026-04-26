@@ -22,6 +22,7 @@ const KEY_LINKS = {
 
 // ─────────── 全域狀態 ───────────
 const state = {
+  city: localStorage.getItem('pikmin-mrt-city') || 'taipei',
   stations: [],
   mapping: null,
   pois: null,
@@ -30,6 +31,12 @@ const state = {
   map: null,
   markers: new Map(), // stationId → marker
   settings: loadSettings()
+};
+
+const CITY_VIEWS = {
+  taipei:   { center: [25.0478, 121.5170], zoom: 12, name: '台北捷運' },
+  taichung: { center: [24.1640, 120.6470], zoom: 12, name: '台中捷運' },
+  kaohsiung:{ center: [22.6310, 120.3010], zoom: 11, name: '高雄捷運' }
 };
 
 function loadSettings() {
@@ -59,19 +66,27 @@ async function init() {
 
 async function loadData() {
   const status = document.getElementById('dataStatus');
-  status.textContent = '載入中...';
+  status.textContent = `載入 ${CITY_VIEWS[state.city]?.name || state.city} 資料中...`;
 
-  state.stations = await fetch('data/stations.json').then(r => r.json());
-  state.mapping  = await fetch('data/decor-mapping.json').then(r => r.json());
+  // mapping 是全城市共用
+  state.mapping = state.mapping || await fetch('data/decor-mapping.json').then(r => r.json());
+  state.stations = await fetch(`data/${state.city}/stations.json`).then(r => r.json());
+
+  // 運量是選用：有就載，沒有就 null
   try {
-    state.ridership = await fetch('data/ridership.json').then(r => r.json());
+    state.ridership = await fetch(`data/${state.city}/ridership.json`).then(r => {
+      if (!r.ok) throw new Error('no ridership');
+      return r.json();
+    });
     computeRidershipStats();
-  } catch (e) {
+  } catch {
     state.ridership = null;
+    state.ridershipStats = null;
   }
 
   await refreshPois();
-  startPoisPolling();
+  if (state.city === 'taipei') startPoisPolling();
+  else stopPoisPolling();
 }
 
 // 計算全網運量分布（用最近月份），排序後算 percentile
@@ -175,13 +190,20 @@ function stopPoisPolling() {
 
 // ─────────── 地圖 ───────────
 function initMap() {
-  state.map = L.map('map', { zoomControl: true }).setView([25.0478, 121.5170], 12);
+  const view = CITY_VIEWS[state.city] || CITY_VIEWS.taipei;
+  state.map = L.map('map', { zoomControl: true }).setView(view.center, view.zoom);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '© OpenStreetMap, © CARTO',
     maxZoom: 19
   }).addTo(state.map);
 
+  renderStationMarkers();
+}
+
+function renderStationMarkers() {
+  state.markers.forEach(m => state.map.removeLayer(m));
+  state.markers.clear();
   state.stations.forEach(s => {
     const color = s.lines[0].color;
     const marker = L.circleMarker([s.lat, s.lon], {
@@ -200,14 +222,19 @@ function initMap() {
 }
 
 // ─────────── 站點選擇器 ───────────
-function initStationPicker() {
+function rebuildStationList() {
   const datalist = document.getElementById('stationList');
+  datalist.innerHTML = '';
   state.stations.forEach(s => {
     const opt = document.createElement('option');
     opt.value = `${s.name} (${s.lines.map(l => l.ref).join('/')})`;
     opt.dataset.id = s.id;
     datalist.appendChild(opt);
   });
+}
+
+function initStationPicker() {
+  rebuildStationList();
 
   const input = document.getElementById('stationSelect');
   const tryMatch = (v) => {
@@ -1231,6 +1258,40 @@ ${ridershipBlock}
 風格：像熟識台北街頭的玩家朋友，不要太正經，務實。控制在 500 字內。`;
 }
 
+// ─────────── 城市切換 ───────────
+function initCitySwitcher() {
+  const sel = document.getElementById('citySelect');
+  sel.value = state.city;
+  sel.addEventListener('change', e => switchCity(e.target.value));
+}
+
+async function switchCity(newCity) {
+  if (newCity === state.city) return;
+  state.city = newCity;
+  localStorage.setItem('pikmin-mrt-city', newCity);
+
+  // 清掉前次狀態
+  state.selectedStation = null;
+  state._allPoisCache = null;
+  state.rankings = null;
+  if (state.rangeCircle) { state.map.removeLayer(state.rangeCircle); state.rangeCircle = null; }
+  if (typeof clearPoiLayer === 'function') clearPoiLayer();
+  if (typeof clearRoute === 'function') clearRoute();
+  document.getElementById('stationInfo')?.classList.add('hidden');
+  document.getElementById('decorList').innerHTML = '';
+  document.getElementById('aiPanel')?.classList.add('hidden');
+  document.getElementById('stationSelect').value = '';
+  document.getElementById('routeOrigin').value = '';
+  document.getElementById('routeDest').value = '';
+
+  // 重新載入該城市資料
+  await loadData();
+  rebuildStationList();
+  renderStationMarkers();
+  const view = CITY_VIEWS[state.city] || CITY_VIEWS.taipei;
+  state.map.flyTo(view.center, view.zoom, { duration: 0.5 });
+}
+
 // ─────────── 訪客計數 ───────────
 function initVisitorCounter() {
   fetch('https://abacus.jasoncameron.dev/hit/pikmin-mrt-taiwan/total')
@@ -1250,4 +1311,5 @@ init().then(() => {
   initRoutePicker();
   initRouteAi();
   initVisitorCounter();
+  initCitySwitcher();
 });

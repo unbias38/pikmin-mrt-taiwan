@@ -1,0 +1,326 @@
+[
+  {
+    "osmId": 5730723098,
+    "name": "舊社",
+    "nameEn": "Jiushe",
+    "aliases": [],
+    "lat": 24.1823336,
+    "lon": 120.707311,
+    "lines": [
+      {
+        "code": "G",
+        "num": "103",
+        "ref": "G103",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "001"
+  },
+  {
+    "osmId": 4428739725,
+    "name": "北屯總站",
+    "nameEn": "Beitun Main Station",
+    "aliases": [],
+    "lat": 24.189106,
+    "lon": 120.7087947,
+    "lines": [
+      {
+        "code": "G",
+        "num": "103a",
+        "ref": "G103a",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "002"
+  },
+  {
+    "osmId": 5731645678,
+    "name": "松竹",
+    "nameEn": "Songzhu",
+    "aliases": [],
+    "lat": 24.1807297,
+    "lon": 120.7013972,
+    "lines": [
+      {
+        "code": "G",
+        "num": "104",
+        "ref": "G104",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "003"
+  },
+  {
+    "osmId": 5730724512,
+    "name": "四維國小",
+    "nameEn": "Sihwei Elementary School",
+    "aliases": [],
+    "lat": 24.1712587,
+    "lon": 120.6932542,
+    "lines": [
+      {
+        "code": "G",
+        "num": "105",
+        "ref": "G105",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "004"
+  },
+  {
+    "osmId": 4639688385,
+    "name": "文心崇德",
+    "nameEn": "Wenxin Chongde",
+    "aliases": [],
+    "lat": 24.1721885,
+    "lon": 120.6849892,
+    "lines": [
+      {
+        "code": "G",
+        "num": "106",
+        "ref": "G106",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "005"
+  },
+  {
+    "osmId": 1264707112,
+    "name": "文心中清",
+    "nameEn": "Wenxin Zhongqing (Tianjin Shopping District)",
+    "aliases": [],
+    "lat": 24.1736991,
+    "lon": 120.6705879,
+    "lines": [
+      {
+        "code": "G",
+        "num": "107",
+        "ref": "G107",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "006"
+  },
+  {
+    "osmId": 4428067702,
+    "name": "文華高中",
+    "nameEn": "Wenhua Senior High School",
+    "aliases": [],
+    "lat": 24.1715045,
+    "lon": 120.6606519,
+    "lines": [
+      {
+        "code": "G",
+        "num": "108",
+        "ref": "G108",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "007"
+  },
+  {
+    "osmId": 4428051659,
+    "name": "文心櫻花",
+    "nameEn": "Wenxin Yinghua",
+    "aliases": [],
+    "lat": 24.1677802,
+    "lon": 120.6538902,
+    "lines": [
+      {
+        "code": "G",
+        "num": "109",
+        "ref": "G109",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "008"
+  },
+  {
+    "osmId": 5730723096,
+    "name": "市政府",
+    "nameEn": "Taichung City Hall",
+    "aliases": [],
+    "lat": 24.1620975,
+    "lon": 120.6492346,
+    "lines": [
+      {
+        "code": "G",
+        "num": "110",
+        "ref": "G110",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "009"
+  },
+  {
+    "osmId": 8037404256,
+    "name": "水安宮",
+    "nameEn": "Shui-an Temple",
+    "aliases": [],
+    "lat": 24.1532394,
+    "lon": 120.6467803,
+    "lines": [
+      {
+        "code": "G",
+        "num": "111",
+        "ref": "G111",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "010"
+  },
+  {
+    "osmId": 5730723095,
+    "name": "文心森林公園",
+    "nameEn": "Wenxin Forest Park",
+    "aliases": [],
+    "lat": 24.1454324,
+    "lon": 120.6467169,
+    "lines": [
+      {
+        "code": "G",
+        "num": "112",
+        "ref": "G112",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "011"
+  },
+  {
+    "osmId": 5730724451,
+    "name": "南屯",
+    "nameEn": "Nantun (Wuquan West Wenxin)",
+    "aliases": [],
+    "lat": 24.1405491,
+    "lon": 120.6466919,
+    "lines": [
+      {
+        "code": "G",
+        "num": "113",
+        "ref": "G113",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "012"
+  },
+  {
+    "osmId": 5730724445,
+    "name": "豐樂公園",
+    "nameEn": "Feng-le Park",
+    "aliases": [],
+    "lat": 24.1323601,
+    "lon": 120.6464415,
+    "lines": [
+      {
+        "code": "G",
+        "num": "114",
+        "ref": "G114",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "013"
+  },
+  {
+    "osmId": 5730724422,
+    "name": "大慶",
+    "nameEn": "Daqing (Chungshan Medical University)",
+    "aliases": [],
+    "lat": 24.1190562,
+    "lon": 120.6475045,
+    "lines": [
+      {
+        "code": "G",
+        "num": "115",
+        "ref": "G115",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "014"
+  },
+  {
+    "osmId": 4678587258,
+    "name": "九張犁",
+    "nameEn": "Jiuzhangli",
+    "aliases": [],
+    "lat": 24.114382,
+    "lon": 120.6399052,
+    "lines": [
+      {
+        "code": "G",
+        "num": "116",
+        "ref": "G116",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "015"
+  },
+  {
+    "osmId": 2347023682,
+    "name": "九德",
+    "nameEn": "Jiude",
+    "aliases": [],
+    "lat": 24.1109492,
+    "lon": 120.6343411,
+    "lines": [
+      {
+        "code": "G",
+        "num": "117",
+        "ref": "G117",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "016"
+  },
+  {
+    "osmId": 5730723106,
+    "name": "烏日",
+    "nameEn": "Wuri",
+    "aliases": [],
+    "lat": 24.1088771,
+    "lon": 120.6248657,
+    "lines": [
+      {
+        "code": "G",
+        "num": "118",
+        "ref": "G118",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "017"
+  },
+  {
+    "osmId": 5528191582,
+    "name": "高鐵臺中站",
+    "nameEn": "HSR Taichung Station",
+    "aliases": [],
+    "lat": 24.1100718,
+    "lon": 120.6140045,
+    "lines": [
+      {
+        "code": "G",
+        "num": "119",
+        "ref": "G119",
+        "color": "#008659",
+        "name": "綠線"
+      }
+    ],
+    "id": "018"
+  }
+]

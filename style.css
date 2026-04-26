@@ -51,7 +51,19 @@ html, body {
   transition: all 0.2s;
 }
 .icon-btn:hover { background: var(--bg-2); border-color: var(--accent); }
-.topbar-actions { display: flex; gap: 8px; }
+.topbar-actions { display: flex; gap: 8px; align-items: center; }
+
+.city-select {
+  background: var(--bg-1);
+  color: var(--text-1);
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.city-select:hover { border-color: var(--accent); }
 
 /* Ranking modal */
 .modal-wide { width: 720px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; }

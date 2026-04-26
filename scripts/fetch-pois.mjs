@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-// 批次抓 109 站 800m POI → data/pois.json
+// 用法：node scripts/fetch-pois.mjs <city>
+// 批次抓指定城市每站 800m POI → data/<city>/pois.json
 // 套用 decor-mapping 過濾，只留有 Decor 對應的 POI
-// 可斷可續：已抓過的 station 跳過
+// 可斷可續；FORCE=1 強制重抓
 
 import fs from 'fs';
 import path from 'path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const RADIUS = 800;
-const SLEEP_MS = 3000;        // 正常間隔
-const RETRY_BACKOFF = [5000, 10000, 20000];  // 429/錯誤的重試延遲
+const SLEEP_MS = 3000;
+const RETRY_BACKOFF = [5000, 10000, 20000];
 const TIMEOUT_S = 60;
 const ENDPOINTS = [
   'https://overpass-api.de/api/interpreter',
@@ -17,7 +18,13 @@ const ENDPOINTS = [
   'https://overpass.private.coffee/api/interpreter'
 ];
 
-const allStations = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/stations.json'), 'utf8'));
+const cityKey = process.argv[2];
+if (!cityKey) {
+  console.error('用法：node scripts/fetch-pois.mjs <taipei|taichung|kaohsiung>');
+  process.exit(1);
+}
+
+const allStations = JSON.parse(fs.readFileSync(path.join(ROOT, `data/${cityKey}/stations.json`), 'utf8'));
 const mapping     = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/decor-mapping.json'), 'utf8'));
 
 // 排序優先級：1. 轉乘站  2. 玩家熟悉的核心站  3. 其他
@@ -43,7 +50,7 @@ const stations = [...allStations].sort((a, b) => {
   return a.lines[0].ref.localeCompare(b.lines[0].ref);
 });
 
-const OUT = path.join(ROOT, 'data/pois.json');
+const OUT = path.join(ROOT, `data/${cityKey}/pois.json`);
 const FORCE = process.env.FORCE === '1';
 let out = {};
 if (fs.existsSync(OUT)) {

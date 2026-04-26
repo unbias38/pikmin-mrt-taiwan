@@ -1,0 +1,1336 @@
+[
+  {
+    "osmId": 4576225718,
+    "name": "籬仔內",
+    "nameEn": "Lizihnei",
+    "aliases": [],
+    "lat": 22.604578,
+    "lon": 120.3246121,
+    "lines": [
+      {
+        "code": "C",
+        "num": "1",
+        "ref": "C1",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "001"
+  },
+  {
+    "osmId": 4804112980,
+    "name": "光榮碼頭",
+    "nameEn": "Glory Pier",
+    "aliases": [],
+    "lat": 22.6166858,
+    "lon": 120.2931506,
+    "lines": [
+      {
+        "code": "C",
+        "num": "10",
+        "ref": "C10",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "002"
+  },
+  {
+    "osmId": 4804112949,
+    "name": "真愛碼頭",
+    "nameEn": "Love Pier",
+    "aliases": [],
+    "lat": 22.6192654,
+    "lon": 120.2894256,
+    "lines": [
+      {
+        "code": "C",
+        "num": "11",
+        "ref": "C11",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "003"
+  },
+  {
+    "osmId": 4934237755,
+    "name": "駁二大義",
+    "nameEn": "Dayi Pier-2",
+    "aliases": [],
+    "lat": 22.6184985,
+    "lon": 120.2842225,
+    "lines": [
+      {
+        "code": "C",
+        "num": "12",
+        "ref": "C12",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "004"
+  },
+  {
+    "osmId": 4934237746,
+    "name": "駁二蓬萊",
+    "nameEn": "Penglai Pier-2",
+    "aliases": [],
+    "lat": 22.6204454,
+    "lon": 120.2799183,
+    "lines": [
+      {
+        "code": "C",
+        "num": "13",
+        "ref": "C13",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "005"
+  },
+  {
+    "osmId": 4934237745,
+    "name": "哈瑪星",
+    "nameEn": "Hamasen",
+    "aliases": [],
+    "lat": 22.6216116,
+    "lon": 120.2758388,
+    "lines": [
+      {
+        "code": "C",
+        "num": "14",
+        "ref": "C14",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "006"
+  },
+  {
+    "osmId": 5963969990,
+    "name": "壽山公園",
+    "nameEn": "Shoushan Park",
+    "aliases": [],
+    "lat": 22.6265296,
+    "lon": 120.278669,
+    "lines": [
+      {
+        "code": "C",
+        "num": "15",
+        "ref": "C15",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "007"
+  },
+  {
+    "osmId": 5963969989,
+    "name": "文武聖殿",
+    "nameEn": "Wenwu Temple",
+    "aliases": [],
+    "lat": 22.6295474,
+    "lon": 120.2807283,
+    "lines": [
+      {
+        "code": "C",
+        "num": "16",
+        "ref": "C16",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "008"
+  },
+  {
+    "osmId": 5963967382,
+    "name": "鼓山區公所",
+    "nameEn": "Gushan District Office",
+    "aliases": [],
+    "lat": 22.6360321,
+    "lon": 120.2825911,
+    "lines": [
+      {
+        "code": "C",
+        "num": "17",
+        "ref": "C17",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "009"
+  },
+  {
+    "osmId": 8057987302,
+    "name": "鼓山",
+    "nameEn": "Gushan",
+    "aliases": [
+      "輕軌鼓山站"
+    ],
+    "lat": 22.6420358,
+    "lon": 120.2810929,
+    "lines": [
+      {
+        "code": "C",
+        "num": "18",
+        "ref": "C18",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "010"
+  },
+  {
+    "osmId": 8057987301,
+    "name": "馬卡道",
+    "nameEn": "Makatao",
+    "aliases": [],
+    "lat": 22.6470427,
+    "lon": 120.2814409,
+    "lines": [
+      {
+        "code": "C",
+        "num": "19",
+        "ref": "C19",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "011"
+  },
+  {
+    "osmId": 4576225717,
+    "name": "凱旋瑞田",
+    "nameEn": "Kaisyuan Rueitian",
+    "aliases": [],
+    "lat": 22.5995711,
+    "lon": 120.3197975,
+    "lines": [
+      {
+        "code": "C",
+        "num": "2",
+        "ref": "C2",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "012"
+  },
+  {
+    "osmId": 8057987300,
+    "name": "臺鐵美術館",
+    "nameEn": "TRA Museum of Fine Arts Station",
+    "aliases": [],
+    "lat": 22.6521144,
+    "lon": 120.2817491,
+    "lines": [
+      {
+        "code": "C",
+        "num": "20",
+        "ref": "C20",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "013"
+  },
+  {
+    "osmId": 9776227777,
+    "name": "美術館",
+    "nameEn": "Museum of Fine Arts",
+    "aliases": [],
+    "lat": 22.6549882,
+    "lon": 120.2872544,
+    "lines": [
+      {
+        "code": "C",
+        "num": "21",
+        "ref": "C21",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "014"
+  },
+  {
+    "osmId": 9776227778,
+    "name": "內惟藝術中心",
+    "nameEn": "Neiwei Arts Center",
+    "aliases": [],
+    "lat": 22.6549695,
+    "lon": 120.2828409,
+    "lines": [
+      {
+        "code": "C",
+        "num": "21A",
+        "ref": "C21A",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "015"
+  },
+  {
+    "osmId": 9776227776,
+    "name": "聯合醫院",
+    "nameEn": "Kaohsiung Municipal United Hospital",
+    "aliases": [],
+    "lat": 22.654805,
+    "lon": 120.2910873,
+    "lines": [
+      {
+        "code": "C",
+        "num": "22",
+        "ref": "C22",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "016"
+  },
+  {
+    "osmId": 9776227775,
+    "name": "龍華國小",
+    "nameEn": "Longhua Elementary School",
+    "aliases": [],
+    "lat": 22.6544819,
+    "lon": 120.2950847,
+    "lines": [
+      {
+        "code": "C",
+        "num": "23",
+        "ref": "C23",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "017"
+  },
+  {
+    "osmId": 9776227774,
+    "name": "愛河之心",
+    "nameEn": "Heart of Love River",
+    "aliases": [],
+    "lat": 22.6561709,
+    "lon": 120.303253,
+    "lines": [
+      {
+        "code": "C",
+        "num": "24",
+        "ref": "C24",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "018"
+  },
+  {
+    "osmId": 11466218770,
+    "name": "新上國小",
+    "nameEn": "Sinshang Elementary School",
+    "aliases": [],
+    "lat": 22.6566418,
+    "lon": 120.3088043,
+    "lines": [
+      {
+        "code": "C",
+        "num": "25",
+        "ref": "C25",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "019"
+  },
+  {
+    "osmId": 11466218769,
+    "name": "大順民族",
+    "nameEn": "Dashun Minzu",
+    "aliases": [],
+    "lat": 22.6554849,
+    "lon": 120.3154233,
+    "lines": [
+      {
+        "code": "C",
+        "num": "26",
+        "ref": "C26",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "020"
+  },
+  {
+    "osmId": 11466206762,
+    "name": "灣仔內",
+    "nameEn": "Wanzihnei",
+    "aliases": [],
+    "lat": 22.653543,
+    "lon": 120.31888,
+    "lines": [
+      {
+        "code": "C",
+        "num": "27",
+        "ref": "C27",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "021"
+  },
+  {
+    "osmId": 11466206751,
+    "name": "高雄高工",
+    "nameEn": "Kaohsiung Industrial High School",
+    "aliases": [],
+    "lat": 22.6497954,
+    "lon": 120.3241552,
+    "lines": [
+      {
+        "code": "C",
+        "num": "28",
+        "ref": "C28",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "022"
+  },
+  {
+    "osmId": 11466206748,
+    "name": "樹德家商",
+    "nameEn": "Shu-Te Home-Economics & Commercial High School",
+    "aliases": [],
+    "lat": 22.6438161,
+    "lon": 120.3263305,
+    "lines": [
+      {
+        "code": "C",
+        "num": "29",
+        "ref": "C29",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "023"
+  },
+  {
+    "osmId": 4576225719,
+    "name": "前鎮之星",
+    "nameEn": "Cianjhen Star",
+    "aliases": [],
+    "lat": 22.5954952,
+    "lon": 120.3153928,
+    "lines": [
+      {
+        "code": "C",
+        "num": "3",
+        "ref": "C3",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "024"
+  },
+  {
+    "osmId": 11466206737,
+    "name": "科工館",
+    "nameEn": "Science and Technology Museum",
+    "aliases": [],
+    "lat": 22.6369232,
+    "lon": 120.3271428,
+    "lines": [
+      {
+        "code": "C",
+        "num": "30",
+        "ref": "C30",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "025"
+  },
+  {
+    "osmId": 11466206728,
+    "name": "聖功醫院",
+    "nameEn": "Saint Joseph Hospital",
+    "aliases": [],
+    "lat": 22.6327993,
+    "lon": 120.3256124,
+    "lines": [
+      {
+        "code": "C",
+        "num": "31",
+        "ref": "C31",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "026"
+  },
+  {
+    "osmId": 8057987308,
+    "name": "凱旋公園",
+    "nameEn": "Kaisyuan Park",
+    "aliases": [],
+    "lat": 22.6294128,
+    "lon": 120.322824,
+    "lines": [
+      {
+        "code": "C",
+        "num": "32",
+        "ref": "C32",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "027"
+  },
+  {
+    "osmId": 8057987307,
+    "name": "衛生局",
+    "nameEn": "Department of Health",
+    "aliases": [],
+    "lat": 22.6251751,
+    "lon": 120.3236496,
+    "lines": [
+      {
+        "code": "C",
+        "num": "33",
+        "ref": "C33",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "028"
+  },
+  {
+    "osmId": 8057987306,
+    "name": "五權國小",
+    "nameEn": "Wucyuan Elementary School",
+    "aliases": [],
+    "lat": 22.6211709,
+    "lon": 120.32518,
+    "lines": [
+      {
+        "code": "C",
+        "num": "34",
+        "ref": "C34",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "029"
+  },
+  {
+    "osmId": 8057987305,
+    "name": "凱旋武昌",
+    "nameEn": "Kaisyuan Wuchang",
+    "aliases": [],
+    "lat": 22.6168915,
+    "lon": 120.3268268,
+    "lines": [
+      {
+        "code": "C",
+        "num": "35",
+        "ref": "C35",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "030"
+  },
+  {
+    "osmId": 8057987304,
+    "name": "凱旋二聖",
+    "nameEn": "Kaisyuan Ersheng",
+    "aliases": [],
+    "lat": 22.6125106,
+    "lon": 120.3271484,
+    "lines": [
+      {
+        "code": "C",
+        "num": "36",
+        "ref": "C36",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "031"
+  },
+  {
+    "osmId": 8057987303,
+    "name": "輕軌機廠",
+    "nameEn": "LRT Depot",
+    "aliases": [],
+    "lat": 22.6084757,
+    "lon": 120.3260515,
+    "lines": [
+      {
+        "code": "C",
+        "num": "37",
+        "ref": "C37",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "032"
+  },
+  {
+    "osmId": 4579273015,
+    "name": "凱旋中華",
+    "nameEn": "Kaisyuan Jhonghua",
+    "aliases": [],
+    "lat": 22.5936154,
+    "lon": 120.3105357,
+    "lines": [
+      {
+        "code": "C",
+        "num": "4",
+        "ref": "C4",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "033"
+  },
+  {
+    "osmId": 4579273018,
+    "name": "夢時代",
+    "nameEn": "Dream Mall",
+    "aliases": [],
+    "lat": 22.595005,
+    "lon": 120.3049144,
+    "lines": [
+      {
+        "code": "C",
+        "num": "5",
+        "ref": "C5",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "034"
+  },
+  {
+    "osmId": 4579273017,
+    "name": "經貿園區",
+    "nameEn": "Commerce and Trade Park",
+    "aliases": [],
+    "lat": 22.6008963,
+    "lon": 120.3026381,
+    "lines": [
+      {
+        "code": "C",
+        "num": "6",
+        "ref": "C6",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "035"
+  },
+  {
+    "osmId": 4579273014,
+    "name": "軟體園區",
+    "nameEn": "Software Technology Park",
+    "aliases": [],
+    "lat": 22.6056852,
+    "lon": 120.3008011,
+    "lines": [
+      {
+        "code": "C",
+        "num": "7",
+        "ref": "C7",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "036"
+  },
+  {
+    "osmId": 4579273016,
+    "name": "高雄展覽館",
+    "nameEn": "Kaohsiung Exhibition Center",
+    "aliases": [],
+    "lat": 22.6101061,
+    "lon": 120.2980082,
+    "lines": [
+      {
+        "code": "C",
+        "num": "8",
+        "ref": "C8",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "037"
+  },
+  {
+    "osmId": 4801892825,
+    "name": "旅運中心",
+    "nameEn": "Cruise Terminal",
+    "aliases": [],
+    "lat": 22.6116371,
+    "lon": 120.2933482,
+    "lines": [
+      {
+        "code": "C",
+        "num": "9",
+        "ref": "C9",
+        "color": "#84C341",
+        "name": "環狀輕軌"
+      }
+    ],
+    "id": "038"
+  },
+  {
+    "osmId": 4580663523,
+    "name": "哈瑪星",
+    "nameEn": "Hamasen",
+    "aliases": [],
+    "lat": 22.621369,
+    "lon": 120.2748048,
+    "lines": [
+      {
+        "code": "O",
+        "num": "1",
+        "ref": "O1",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "039"
+  },
+  {
+    "osmId": 4581495519,
+    "name": "衛武營",
+    "nameEn": "Weiwuying",
+    "aliases": [],
+    "lat": 22.6251886,
+    "lon": 120.3407993,
+    "lines": [
+      {
+        "code": "O",
+        "num": "10",
+        "ref": "O10",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "040"
+  },
+  {
+    "osmId": 4581502018,
+    "name": "鳳山西站",
+    "nameEn": "Fongshan West",
+    "aliases": [],
+    "lat": 22.6253627,
+    "lon": 120.3480491,
+    "lines": [
+      {
+        "code": "O",
+        "num": "11",
+        "ref": "O11",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "041"
+  },
+  {
+    "osmId": 4581503591,
+    "name": "鳳山",
+    "nameEn": "Fongshan",
+    "aliases": [],
+    "lat": 22.6259919,
+    "lon": 120.3552091,
+    "lines": [
+      {
+        "code": "O",
+        "num": "12",
+        "ref": "O12",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "042"
+  },
+  {
+    "osmId": 4582336214,
+    "name": "大東",
+    "nameEn": "Dadong",
+    "aliases": [],
+    "lat": 22.6251921,
+    "lon": 120.3633605,
+    "lines": [
+      {
+        "code": "O",
+        "num": "13",
+        "ref": "O13",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "043"
+  },
+  {
+    "osmId": 4582339822,
+    "name": "鳳山國中",
+    "nameEn": "Fongshan Junior High School",
+    "aliases": [],
+    "lat": 22.6246291,
+    "lon": 120.3718273,
+    "lines": [
+      {
+        "code": "O",
+        "num": "14",
+        "ref": "O14",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "044"
+  },
+  {
+    "osmId": 4580663525,
+    "name": "鹽埕埔",
+    "nameEn": "Yanchengpu",
+    "aliases": [],
+    "lat": 22.6241553,
+    "lon": 120.2840775,
+    "lines": [
+      {
+        "code": "O",
+        "num": "2",
+        "ref": "O2",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "045"
+  },
+  {
+    "osmId": 4580663528,
+    "name": "前金",
+    "nameEn": "Cianjin",
+    "aliases": [],
+    "lat": 22.6289683,
+    "lon": 120.2946284,
+    "lines": [
+      {
+        "code": "O",
+        "num": "4",
+        "ref": "O4",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "046"
+  },
+  {
+    "osmId": 4580663526,
+    "name": "美麗島",
+    "nameEn": "Formosa Boulevard",
+    "aliases": [],
+    "lat": 22.6313941,
+    "lon": 120.3018602,
+    "lines": [
+      {
+        "code": "O",
+        "num": "5/R10",
+        "ref": "O5/R10",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "047"
+  },
+  {
+    "osmId": 4581486083,
+    "name": "信義國小",
+    "nameEn": "Sinyi Elementary School",
+    "aliases": [],
+    "lat": 22.6307269,
+    "lon": 120.3114522,
+    "lines": [
+      {
+        "code": "O",
+        "num": "6",
+        "ref": "O6",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "048"
+  },
+  {
+    "osmId": 4581486084,
+    "name": "文化中心",
+    "nameEn": "Cultural Center",
+    "aliases": [],
+    "lat": 22.6302695,
+    "lon": 120.3176229,
+    "lines": [
+      {
+        "code": "O",
+        "num": "7",
+        "ref": "O7",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "049"
+  },
+  {
+    "osmId": 4581491487,
+    "name": "五塊厝",
+    "nameEn": "Wukuaicuo",
+    "aliases": [],
+    "lat": 22.6294745,
+    "lon": 120.3276476,
+    "lines": [
+      {
+        "code": "O",
+        "num": "8",
+        "ref": "O8",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "050"
+  },
+  {
+    "osmId": 4581492319,
+    "name": "苓雅運動園區",
+    "nameEn": "Lingya Sports Park",
+    "aliases": [],
+    "lat": 22.6272511,
+    "lon": 120.3346396,
+    "lines": [
+      {
+        "code": "O",
+        "num": "9",
+        "ref": "O9",
+        "color": "#F8B61C",
+        "name": "橘線"
+      }
+    ],
+    "id": "051"
+  },
+  {
+    "osmId": 4580663532,
+    "name": "高雄車站",
+    "nameEn": "Kaohsiung Main Station",
+    "aliases": [],
+    "lat": 22.6393352,
+    "lon": 120.3026522,
+    "lines": [
+      {
+        "code": "R",
+        "num": "11",
+        "ref": "R11",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "052"
+  },
+  {
+    "osmId": 4580663527,
+    "name": "後驛",
+    "nameEn": "Houyi",
+    "aliases": [],
+    "lat": 22.6477388,
+    "lon": 120.3032208,
+    "lines": [
+      {
+        "code": "R",
+        "num": "12",
+        "ref": "R12",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "053"
+  },
+  {
+    "osmId": 4580663524,
+    "name": "凹子底",
+    "nameEn": "Aozihdi",
+    "aliases": [],
+    "lat": 22.6571226,
+    "lon": 120.3030787,
+    "lines": [
+      {
+        "code": "R",
+        "num": "13",
+        "ref": "R13",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "054"
+  },
+  {
+    "osmId": 4580663530,
+    "name": "巨蛋",
+    "nameEn": "Kaohsiung Arena",
+    "aliases": [],
+    "lat": 22.6656214,
+    "lon": 120.3032563,
+    "lines": [
+      {
+        "code": "R",
+        "num": "14",
+        "ref": "R14",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "055"
+  },
+  {
+    "osmId": 4580663529,
+    "name": "生態園區",
+    "nameEn": "Ecological District",
+    "aliases": [],
+    "lat": 22.6764628,
+    "lon": 120.3063428,
+    "lines": [
+      {
+        "code": "R",
+        "num": "15",
+        "ref": "R15",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "056"
+  },
+  {
+    "osmId": 4580663531,
+    "name": "左營",
+    "nameEn": "Zuoying",
+    "aliases": [],
+    "lat": 22.6881662,
+    "lon": 120.309019,
+    "lines": [
+      {
+        "code": "R",
+        "num": "16",
+        "ref": "R16",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "057"
+  },
+  {
+    "osmId": 4580827632,
+    "name": "世運",
+    "nameEn": "World Games",
+    "aliases": [],
+    "lat": 22.7017541,
+    "lon": 120.3025096,
+    "lines": [
+      {
+        "code": "R",
+        "num": "17",
+        "ref": "R17",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "058"
+  },
+  {
+    "osmId": 4580834623,
+    "name": "油廠國小",
+    "nameEn": "Oil Refinery Elementary School",
+    "aliases": [],
+    "lat": 22.7087537,
+    "lon": 120.3023063,
+    "lines": [
+      {
+        "code": "R",
+        "num": "18",
+        "ref": "R18",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "059"
+  },
+  {
+    "osmId": 4580837515,
+    "name": "楠梓科技園區",
+    "nameEn": "Nanzih Technology Industrial Park",
+    "aliases": [],
+    "lat": 22.7187124,
+    "lon": 120.3071682,
+    "lines": [
+      {
+        "code": "R",
+        "num": "19",
+        "ref": "R19",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "060"
+  },
+  {
+    "osmId": 4580845736,
+    "name": "後勁",
+    "nameEn": "Houjing",
+    "aliases": [],
+    "lat": 22.7223496,
+    "lon": 120.3162548,
+    "lines": [
+      {
+        "code": "R",
+        "num": "20",
+        "ref": "R20",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "061"
+  },
+  {
+    "osmId": 4580840208,
+    "name": "都會公園",
+    "nameEn": "Metropolitan Park",
+    "aliases": [],
+    "lat": 22.7296101,
+    "lon": 120.3209273,
+    "lines": [
+      {
+        "code": "R",
+        "num": "21",
+        "ref": "R21",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "062"
+  },
+  {
+    "osmId": 4580850452,
+    "name": "青埔",
+    "nameEn": "Cingpu",
+    "aliases": [],
+    "lat": 22.7444067,
+    "lon": 120.3177237,
+    "lines": [
+      {
+        "code": "R",
+        "num": "22",
+        "ref": "R22",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "063"
+  },
+  {
+    "osmId": 4580876598,
+    "name": "橋頭糖廠",
+    "nameEn": "Ciaotou Sugar Refinery",
+    "aliases": [],
+    "lat": 22.7535555,
+    "lon": 120.3145546,
+    "lines": [
+      {
+        "code": "R",
+        "num": "22A",
+        "ref": "R22A",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "064"
+  },
+  {
+    "osmId": 4580928832,
+    "name": "橋頭火車站",
+    "nameEn": "Ciaotou Station",
+    "aliases": [],
+    "lat": 22.7609322,
+    "lon": 120.3106932,
+    "lines": [
+      {
+        "code": "R",
+        "num": "23",
+        "ref": "R23",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "065"
+  },
+  {
+    "osmId": 4580928833,
+    "name": "岡山高醫",
+    "nameEn": "Kaohsiung Medical University Gangshan Hospital",
+    "aliases": [],
+    "lat": 22.7807473,
+    "lon": 120.3017302,
+    "lines": [
+      {
+        "code": "R",
+        "num": "24",
+        "ref": "R24",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "066"
+  },
+  {
+    "osmId": 4579346760,
+    "name": "小港",
+    "nameEn": "Siaogang",
+    "aliases": [],
+    "lat": 22.5645135,
+    "lon": 120.3538755,
+    "lines": [
+      {
+        "code": "R",
+        "num": "3",
+        "ref": "R3",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "067"
+  },
+  {
+    "osmId": 4579346758,
+    "name": "高雄國際機場",
+    "nameEn": "Kaohsiung International Airport",
+    "aliases": [],
+    "lat": 22.5701158,
+    "lon": 120.3416274,
+    "lines": [
+      {
+        "code": "R",
+        "num": "4",
+        "ref": "R4",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "068"
+  },
+  {
+    "osmId": 4579346759,
+    "name": "草衙",
+    "nameEn": "Caoya",
+    "aliases": [],
+    "lat": 22.5805475,
+    "lon": 120.3287686,
+    "lines": [
+      {
+        "code": "R",
+        "num": "4A",
+        "ref": "R4A",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "069"
+  },
+  {
+    "osmId": 4579352785,
+    "name": "前鎮高中",
+    "nameEn": "Cianjhen Senior High School",
+    "aliases": [],
+    "lat": 22.5884118,
+    "lon": 120.3217412,
+    "lines": [
+      {
+        "code": "R",
+        "num": "5",
+        "ref": "R5",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "070"
+  },
+  {
+    "osmId": 4579352784,
+    "name": "凱旋",
+    "nameEn": "Kaisyuan",
+    "aliases": [],
+    "lat": 22.5970181,
+    "lon": 120.3151134,
+    "lines": [
+      {
+        "code": "R",
+        "num": "6",
+        "ref": "R6",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "071"
+  },
+  {
+    "osmId": 4579353571,
+    "name": "獅甲",
+    "nameEn": "Shihjia",
+    "aliases": [],
+    "lat": 22.6061802,
+    "lon": 120.3078782,
+    "lines": [
+      {
+        "code": "R",
+        "num": "7",
+        "ref": "R7",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "072"
+  },
+  {
+    "osmId": 4579363124,
+    "name": "三多商圈",
+    "nameEn": "Sanduo Shopping District",
+    "aliases": [],
+    "lat": 22.6141528,
+    "lon": 120.3044216,
+    "lines": [
+      {
+        "code": "R",
+        "num": "8",
+        "ref": "R8",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "073"
+  },
+  {
+    "osmId": 4579367648,
+    "name": "中央公園",
+    "nameEn": "Central Park",
+    "aliases": [],
+    "lat": 22.6248724,
+    "lon": 120.3011177,
+    "lines": [
+      {
+        "code": "R",
+        "num": "9",
+        "ref": "R9",
+        "color": "#E3002C",
+        "name": "紅線"
+      }
+    ],
+    "id": "074"
+  }
+]
