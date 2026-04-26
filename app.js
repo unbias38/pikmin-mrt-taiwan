@@ -452,5 +452,108 @@ async function callOpenAI(model, key, prompt) {
   return text;
 }
 
+// ─────────── 排行 Modal ───────────
+function buildRankings() {
+  // rankings[decor] = [{ stationId, name, count, lines }, ...] desc
+  const rankings = {};
+  state.stations.forEach(station => {
+    const poiData = state.pois[station.id];
+    if (!poiData) return;
+    Object.entries(poiData.summary).forEach(([decor, count]) => {
+      if (!rankings[decor]) rankings[decor] = [];
+      rankings[decor].push({ stationId: station.id, name: station.name, count, lines: station.lines });
+    });
+  });
+  Object.values(rankings).forEach(arr => arr.sort((a, b) => b.count - a.count));
+  return rankings;
+}
+
+function openRankingModal() {
+  if (!state.rankings) state.rankings = buildRankings();
+
+  const list = document.getElementById('rankingDecorList');
+  const decorTypes = state.mapping.decorTypes;
+
+  // 排序：稀有度（站數少）優先，相同站數比 confidence
+  const rows = Object.keys(decorTypes)
+    .map(d => ({
+      decor: d,
+      meta: decorTypes[d],
+      stationCount: state.rankings[d]?.length || 0,
+      total: state.rankings[d]?.reduce((s, x) => s + x.count, 0) || 0
+    }))
+    .sort((a, b) => {
+      // 0 站排到最後
+      if (a.stationCount === 0 && b.stationCount > 0) return 1;
+      if (b.stationCount === 0 && a.stationCount > 0) return -1;
+      return a.stationCount - b.stationCount || b.total - a.total;
+    });
+
+  list.innerHTML = rows.map(r => {
+    const cls = r.stationCount === 0 ? 'no-data' :
+                r.stationCount === 1 ? 'exclusive' :
+                r.stationCount <= 5 ? 'rare' : '';
+    return `<div class="ranking-decor-row ${cls}" data-decor="${r.decor}">
+      <span class="emoji">${r.meta.emoji}</span>
+      <span class="name">${r.meta.zh}</span>
+      <span class="station-count">${r.stationCount} 站</span>
+    </div>`;
+  }).join('');
+
+  list.querySelectorAll('.ranking-decor-row').forEach(row => {
+    row.onclick = () => showRankingFor(row.dataset.decor);
+  });
+
+  document.getElementById('rankingModal').classList.remove('hidden');
+}
+
+function showRankingFor(decor) {
+  const meta = state.mapping.decorTypes[decor];
+  const list = state.rankings[decor] || [];
+  document.querySelectorAll('.ranking-decor-row').forEach(r =>
+    r.classList.toggle('active', r.dataset.decor === decor));
+
+  const right = document.getElementById('rankingStationList');
+  if (!list.length) {
+    right.innerHTML = `<h3>${meta.emoji} ${meta.zh}</h3>
+      <div class="summary-line">沒有任何站在 800m 內偵測到此類別</div>`;
+    return;
+  }
+
+  const totalPoi = list.reduce((s, x) => s + x.count, 0);
+  const summaryNote = list.length === 1 ? `🔥 全網獨家！只有 1 站有` :
+                      list.length <= 5 ? `稀有：全網僅 ${list.length} 站有` :
+                      `共 ${list.length} 站有，總計 ${totalPoi} 個 POI`;
+
+  right.innerHTML = `<h3>${meta.emoji} ${meta.zh}</h3>
+    <div class="summary-line">${summaryNote}${meta.confidence !== 'high' ? ` · ⚠ 推測對應` : ''}</div>
+    <div>${list.slice(0, 25).map((s, i) => {
+      const rankCls = i === 0 ? 'top1' : i < 3 ? 'top3' : '';
+      const lines = s.lines.map(l => `<span class="line-badge" style="--line-color:${l.color}">${l.ref}</span>`).join('');
+      return `<div class="station-rank-row" data-id="${s.stationId}">
+        <span class="rank ${rankCls}">${i + 1}.</span>
+        <span class="station-name">${s.name}</span>
+        <span class="lines">${lines}</span>
+        <span class="count">${s.count}</span>
+      </div>`;
+    }).join('')}</div>`;
+
+  right.querySelectorAll('.station-rank-row').forEach(row => {
+    row.onclick = () => {
+      const station = state.stations.find(s => s.id === row.dataset.id);
+      if (station) {
+        document.getElementById('rankingModal').classList.add('hidden');
+        selectStation(station);
+      }
+    };
+  });
+}
+
+function initRanking() {
+  document.getElementById('rankingBtn').onclick = openRankingModal;
+  document.getElementById('closeRanking').onclick = () =>
+    document.getElementById('rankingModal').classList.add('hidden');
+}
+
 // ─────────── 啟動 ───────────
-init();
+init().then(initRanking);

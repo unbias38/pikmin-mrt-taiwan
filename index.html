@@ -19,7 +19,10 @@
         <p>選一站，看周邊 800m 能拿哪些 Decor 皮克敏</p>
       </div>
     </div>
-    <button id="settingsBtn" class="icon-btn" title="設定 API Key">⚙️ 設定</button>
+    <div class="topbar-actions">
+      <button id="rankingBtn" class="icon-btn" title="Decor 稀有度排行">📊 排行</button>
+      <button id="settingsBtn" class="icon-btn" title="設定 API Key">⚙️ 設定</button>
+    </div>
   </header>
 
   <main class="layout">
@@ -93,6 +96,27 @@
           <button id="saveSettings" class="primary-btn">儲存</button>
         </div>
         <p class="warning-text">⚠ 純前端應用，API Key 只存在你瀏覽器裡，不會上傳。但若在共用電腦，建議不要勾「記住」。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 排行 Modal -->
+  <div id="rankingModal" class="modal hidden">
+    <div class="modal-content modal-wide">
+      <div class="modal-header">
+        <h2>📊 Decor 稀有度排行</h2>
+        <button class="close-btn" id="closeRanking">✕</button>
+      </div>
+      <div class="modal-body ranking-body">
+        <div class="ranking-left">
+          <p class="ranking-hint">點一下類別看哪些站有（稀有 Decor 排前面）</p>
+          <div id="rankingDecorList"></div>
+        </div>
+        <div class="ranking-right">
+          <div id="rankingStationList">
+            <p class="hint" style="text-align:center;color:var(--text-3);padding:40px 20px;">← 從左邊選一個 Decor 類別</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
