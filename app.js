@@ -776,11 +776,17 @@ function switchMode(mode) {
 }
 
 function initRoutePicker() {
-  const tryMatchRoute = (v) => state.stations.find(x =>
-    v === `${x.name} (${x.lines.map(l => l.ref).join('/')})` || v === x.name);
   ['routeOrigin', 'routeDest'].forEach(id => {
     const inp = document.getElementById(id);
     inp.addEventListener('focus', e => e.target.select());
+  });
+  // 路線類型切換 → 顯示/隱藏對應欄位
+  document.querySelectorAll('input[name="routeType"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const t = document.querySelector('input[name="routeType"]:checked').value;
+      document.getElementById('destField').classList.toggle('hidden', t === 'timed');
+      document.getElementById('timeField').classList.toggle('hidden', t !== 'timed');
+    });
   });
   document.getElementById('planRouteBtn').onclick = planRoute;
 }
@@ -789,16 +795,31 @@ async function planRoute() {
   const tryMatch = v => state.stations.find(x =>
     v === `${x.name} (${x.lines.map(l => l.ref).join('/')})` || v === x.name);
   const origin = tryMatch(document.getElementById('routeOrigin').value);
-  const dest   = tryMatch(document.getElementById('routeDest').value);
-  if (!origin || !dest) { alert('請選擇有效的起點與終點'); return; }
-  if (origin.id === dest.id) { alert('起點與終點不能相同'); return; }
+  const routeType = document.querySelector('input[name="routeType"]:checked').value;
+
+  if (!origin) { alert('請選擇有效的起點'); return; }
 
   const btn = document.getElementById('planRouteBtn');
   btn.disabled = true;
   btn.textContent = '計算中...';
+
   try {
-    const route = await fetchOSRMRoute(origin, dest);
-    state.route = { origin, dest, ...route };
+    let dest, isLoop = false;
+    if (routeType === 'timed') {
+      const minutes = parseInt(document.getElementById('timeBudget').value);
+      btn.textContent = `挑中繼站中...`;
+      dest = await pickIntermediateStation(origin, minutes);
+      if (!dest) throw new Error('找不到合適的中繼站');
+      isLoop = true;
+    } else {
+      dest = tryMatch(document.getElementById('routeDest').value);
+      if (!dest) { alert('請選擇有效的終點'); btn.disabled=false; btn.textContent='規劃步行路線'; return; }
+      if (origin.id === dest.id) { alert('起點與終點不能相同'); btn.disabled=false; btn.textContent='規劃步行路線'; return; }
+      isLoop = (routeType === 'loop');
+    }
+
+    const route = isLoop ? await fetchLoopRoute(origin, dest) : await fetchOSRMRoute(origin, dest);
+    state.route = { origin, dest, isLoop, routeType, ...route };
     state.route.buffered = filterPoisInBuffer(route.geometry, ROUTE_BUFFER_M);
     state.route.stationsOnPath = findStationsOnPath(route.geometry, 500);
     renderRoute();
@@ -808,6 +829,56 @@ async function planRoute() {
     btn.disabled = false;
     btn.textContent = '規劃步行路線';
   }
+}
+
+// 散步圈：A→B + B→A（嘗試 alternative path）
+async function fetchLoopRoute(origin, dest) {
+  const leg1 = await fetchOSRMRoute(origin, dest);
+  // 回程嘗試 alternatives
+  const url = `https://router.project-osrm.org/route/v1/foot/${dest.lon},${dest.lat};${origin.lon},${origin.lat}?overview=full&geometries=geojson&alternatives=true`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`OSRM HTTP ${res.status}`);
+  const data = await res.json();
+  if (data.code !== 'Ok' || !data.routes?.length) throw new Error('回程路徑找不到');
+  // 有 alternative 就用第二條，沒有就用第一條
+  const alt = data.routes.length > 1 ? data.routes[1] : data.routes[0];
+  return {
+    geometry: {
+      type: 'LineString',
+      coordinates: [...leg1.geometry.coordinates, ...alt.geometry.coordinates]
+    },
+    distance: leg1.distance + alt.distance,
+    duration: (leg1.distance + alt.distance) / 1.4,
+    leg1: { geometry: leg1.geometry, distance: leg1.distance },
+    leg2: { geometry: alt.geometry, distance: alt.distance }
+  };
+}
+
+// 限時模式：依時間預算挑中繼站（Decor 多樣性最高的）
+async function pickIntermediateStation(origin, minutes) {
+  // 走路 5 km/h，半圈距離 = (minutes/60) × 5 / 2 km
+  const targetHalfKm = (minutes / 60) * 5 / 2;
+  const targetMeters = targetHalfKm * 1000;
+  const tolerance = targetMeters * 0.3; // ±30%
+
+  // 先用 haversine 算每站直線距離
+  const candidates = state.stations
+    .filter(s => s.id !== origin.id)
+    .map(s => ({ s, dist: haversineM(origin.lat, origin.lon, s.lat, s.lon) }))
+    .filter(c => Math.abs(c.dist - targetMeters) <= tolerance);
+
+  if (!candidates.length) return null;
+
+  // 用 Decor 多樣性 + 距離靠近目標 排序
+  const originDecors = new Set(Object.keys(state.pois[origin.id]?.summary || {}));
+  candidates.forEach(c => {
+    const cDecors = new Set(Object.keys(state.pois[c.s.id]?.summary || {}));
+    const newDecors = [...cDecors].filter(d => !originDecors.has(d)).length;
+    const distScore = 1 - Math.abs(c.dist - targetMeters) / tolerance; // 越靠目標越高
+    c.score = newDecors * 2 + distScore;
+  });
+  candidates.sort((a, b) => b.score - a.score);
+  return candidates[0].s;
 }
 
 // 找出在路徑 500m 內的所有捷運站（用於沿路運量分析）
@@ -904,26 +975,33 @@ function clearRoute() {
 
 function renderRoute() {
   clearRoute();
-  const { geometry, distance, duration, buffered, origin, dest } = state.route;
+  const { geometry, distance, duration, buffered, origin, dest, isLoop, leg1, leg2 } = state.route;
 
-  // 路線線條
-  state.routeLayer = L.geoJSON(geometry, {
-    style: { color: '#10b981', weight: 5, opacity: 0.85 }
-  }).addTo(state.map);
+  // 路線線條（散步圈時去程實線、回程虛線）
+  const layers = [];
+  if (isLoop && leg1 && leg2) {
+    layers.push(L.geoJSON(leg1.geometry, { style: { color: '#10b981', weight: 5, opacity: 0.85 } }));
+    layers.push(L.geoJSON(leg2.geometry, { style: { color: '#06b6d4', weight: 5, opacity: 0.85, dashArray: '10 6' } }));
+  } else {
+    layers.push(L.geoJSON(geometry, { style: { color: '#10b981', weight: 5, opacity: 0.85 } }));
+  }
+  state.routeLayer = L.layerGroup(layers).addTo(state.map);
 
   // 端點 marker
-  const endpointStyle = (color) => L.circleMarker([0,0], {
-    radius: 9, fillColor: color, color: '#fff', weight: 3, fillOpacity: 1
-  });
+  const originLabel = isLoop ? `起／終點：${origin.name}` : `起點：${origin.name}`;
+  const destLabel = isLoop ? `中繼站：${dest.name}` : `終點：${dest.name}`;
   state.routeMarkersLayer = L.layerGroup([
-    L.circleMarker([origin.lat, origin.lon], { radius: 9, fillColor: '#34d399', color: '#fff', weight: 3, fillOpacity: 1 })
-      .bindTooltip(`起點：${origin.name}`, { direction: 'top' }),
-    L.circleMarker([dest.lat, dest.lon], { radius: 9, fillColor: '#ef4444', color: '#fff', weight: 3, fillOpacity: 1 })
-      .bindTooltip(`終點：${dest.name}`, { direction: 'top' })
+    L.circleMarker([origin.lat, origin.lon], { radius: 10, fillColor: '#34d399', color: '#fff', weight: 3, fillOpacity: 1 })
+      .bindTooltip(originLabel, { direction: 'top', permanent: false }),
+    L.circleMarker([dest.lat, dest.lon], { radius: 9, fillColor: isLoop ? '#06b6d4' : '#ef4444', color: '#fff', weight: 3, fillOpacity: 1 })
+      .bindTooltip(destLabel, { direction: 'top', permanent: false })
   ]).addTo(state.map);
 
   // 縮放到路線範圍
-  state.map.fitBounds(state.routeLayer.getBounds(), { padding: [50, 50] });
+  const bounds = isLoop && leg1 && leg2
+    ? layers[0].getBounds().extend(layers[1].getBounds())
+    : state.routeLayer.getBounds?.() || layers[0].getBounds();
+  state.map.fitBounds(bounds, { padding: [50, 50] });
 
   // 統計數字
   const km   = (distance / 1000).toFixed(2);
@@ -1087,10 +1165,15 @@ async function generateRouteInsight() {
 }
 
 function buildRoutePrompt() {
-  const { origin, dest, distance, duration, buffered } = state.route;
+  const { origin, dest, distance, duration, buffered, isLoop, routeType } = state.route;
   const km = (distance / 1000).toFixed(2);
   const min = Math.round(duration / 60);
   const steps = Math.round(distance * 1.3);
+  const routeDescription = routeType === 'timed'
+    ? `從 ${origin.name}站 出發，經 ${dest.name}站 繞回 ${origin.name}站（限時模式自動規劃）`
+    : isLoop
+    ? `從 ${origin.name}站 走到 ${dest.name}站，再走回 ${origin.name}站（散步圈，回程走不同路徑）`
+    : `從 ${origin.name}站 走到 ${dest.name}站`;
 
   const decorList = Object.entries(buffered.summary)
     .sort((a, b) => b[1] - a[1])
@@ -1127,7 +1210,7 @@ ${stationListStr}
 
   return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃台北捷運站之間的步行散步攻略。
 
-【路線】從 ${origin.name}站 走到 ${dest.name}站
+【路線】${routeDescription}
 【距離】${km} km，預計 ${min} 分鐘步行，約 ${steps.toLocaleString()} 步
 【沿路 ${ROUTE_BUFFER_M}m 範圍內可拿到的 Decor】
 ${decorList}

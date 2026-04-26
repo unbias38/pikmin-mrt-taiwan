@@ -73,10 +73,31 @@
       <!-- 路線模式 -->
       <div id="routeMode" class="mode-panel hidden">
         <div class="route-picker">
+          <div class="route-type-selector">
+            <label><input type="radio" name="routeType" value="direct" checked /> 直線 A→B</label>
+            <label><input type="radio" name="routeType" value="loop" /> 🔄 散步圈 A→B→A</label>
+            <label><input type="radio" name="routeType" value="timed" /> ⏱️ 限時模式</label>
+          </div>
+
           <label for="routeOrigin">起點站</label>
           <input list="stationList" id="routeOrigin" placeholder="例：中山" autocomplete="off" />
-          <label for="routeDest">終點站</label>
-          <input list="stationList" id="routeDest" placeholder="例：台北車站" autocomplete="off" />
+
+          <div id="destField">
+            <label for="routeDest">終點站</label>
+            <input list="stationList" id="routeDest" placeholder="例：台北車站" autocomplete="off" />
+          </div>
+
+          <div id="timeField" class="hidden">
+            <label for="timeBudget">時間預算（分鐘）</label>
+            <select id="timeBudget">
+              <option value="15">15 分鐘 (~1.25 km 半徑)</option>
+              <option value="30" selected>30 分鐘 (~2.5 km 半徑)</option>
+              <option value="45">45 分鐘 (~3.75 km 半徑)</option>
+              <option value="60">60 分鐘 (~5 km 半徑)</option>
+            </select>
+            <p class="hint" style="font-size:11px;color:var(--text-3);margin-top:4px;">系統會找一個 Decor 多樣性高的中繼站，幫你規劃 A → 它 → A 的散步圈。</p>
+          </div>
+
           <button id="planRouteBtn" class="primary-btn full-btn">規劃步行路線</button>
         </div>
 
@@ -162,6 +183,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=7"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>
