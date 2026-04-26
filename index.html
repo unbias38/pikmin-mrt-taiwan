@@ -73,11 +73,12 @@
       <!-- 路線模式 -->
       <div id="routeMode" class="mode-panel hidden">
         <div class="route-picker">
-          <div class="route-type-selector">
-            <label><input type="radio" name="routeType" value="direct" checked /> 直線 A→B</label>
-            <label><input type="radio" name="routeType" value="loop" /> 🔄 散步圈 A→B→A</label>
-            <label><input type="radio" name="routeType" value="timed" /> ⏱️ 限時模式</label>
-          </div>
+          <label for="routeType">路線類型</label>
+          <select id="routeType">
+            <option value="direct">直線 A→B</option>
+            <option value="loop">🔄 散步圈 A→B→A</option>
+            <option value="timed">⏱️ 限時模式</option>
+          </select>
 
           <label for="routeOrigin">起點站</label>
           <input list="stationList" id="routeOrigin" placeholder="例：中山" autocomplete="off" />
@@ -183,6 +184,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

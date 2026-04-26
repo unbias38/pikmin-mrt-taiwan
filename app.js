@@ -781,12 +781,10 @@ function initRoutePicker() {
     inp.addEventListener('focus', e => e.target.select());
   });
   // 路線類型切換 → 顯示/隱藏對應欄位
-  document.querySelectorAll('input[name="routeType"]').forEach(r => {
-    r.addEventListener('change', () => {
-      const t = document.querySelector('input[name="routeType"]:checked').value;
-      document.getElementById('destField').classList.toggle('hidden', t === 'timed');
-      document.getElementById('timeField').classList.toggle('hidden', t !== 'timed');
-    });
+  document.getElementById('routeType').addEventListener('change', (e) => {
+    const t = e.target.value;
+    document.getElementById('destField').classList.toggle('hidden', t === 'timed');
+    document.getElementById('timeField').classList.toggle('hidden', t !== 'timed');
   });
   document.getElementById('planRouteBtn').onclick = planRoute;
 }
@@ -795,7 +793,7 @@ async function planRoute() {
   const tryMatch = v => state.stations.find(x =>
     v === `${x.name} (${x.lines.map(l => l.ref).join('/')})` || v === x.name);
   const origin = tryMatch(document.getElementById('routeOrigin').value);
-  const routeType = document.querySelector('input[name="routeType"]:checked').value;
+  const routeType = document.getElementById('routeType').value;
 
   if (!origin) { alert('請選擇有效的起點'); return; }
 
