@@ -465,7 +465,7 @@ async function callGemini(model, key, prompt) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.7, maxOutputTokens: 1200 }
+      generationConfig: { temperature: 0.7, maxOutputTokens: 4096 }
     })
   });
   const data = await res.json();
@@ -485,7 +485,7 @@ async function callOpenAI(model, key, prompt) {
     body: JSON.stringify({
       model,
       messages: [{ role: 'user', content: prompt }],
-      max_completion_tokens: 1200
+      max_completion_tokens: 8000
     })
   });
   const data = await res.json();

@@ -325,8 +325,6 @@ html, body {
   line-height: 1.7;
   color: #cbd5e1;
   white-space: pre-wrap;
-  max-height: 400px;
-  overflow-y: auto;
 }
 .ai-output .hint { color: var(--text-3); font-size: 12px; }
 
