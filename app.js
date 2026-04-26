@@ -567,9 +567,11 @@ function buildPrompt(s, poiData) {
 `;
   }
 
-  return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃在台北捷運站附近散步的攻略。
+  const cityName = CITY_VIEWS[state.city]?.name || '台北捷運';
+  const cityShortName = cityName.replace('捷運', '');
+  return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃在${cityName}站附近散步的攻略。
 
-【目標站】${s.name}站（${s.lines.map(l => l.name + ' ' + l.ref).join('、')}）
+【目標站】${cityShortName}捷運 ${s.name}站（${s.lines.map(l => l.name + ' ' + l.ref).join('、')}）
 【範圍】800m 內
 【可拿 Decor 類別與對應 POI 數】
 ${decorList}
@@ -589,7 +591,7 @@ ${ridershipInfo}
 ## 四、注意事項
 （避開人潮的具體建議、或需要特別注意的事）
 
-風格要像一個熟識台北街頭的玩家朋友，不要太正經。控制在 400 字內。`;
+風格要像一個熟識${cityShortName}街頭的玩家朋友，不要太正經。控制在 400 字內。`;
 }
 
 async function callLLM(provider, model, key, prompt) {
@@ -1233,8 +1235,11 @@ ${stationListStr}
     }
   }
 
-  return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃台北捷運站之間的步行散步攻略。
+  const cityName = CITY_VIEWS[state.city]?.name || '台北捷運';
+  const cityShortName = cityName.replace('捷運', '');
+  return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃${cityName}站之間的步行散步攻略。
 
+【城市】${cityShortName}（${cityName}）
 【路線】${routeDescription}
 【距離】${km} km，預計 ${min} 分鐘步行，約 ${steps.toLocaleString()} 步
 【沿路 ${ROUTE_BUFFER_M}m 範圍內可拿到的 Decor】
@@ -1255,7 +1260,7 @@ ${ridershipBlock}
 ## 四、步數小目標
 （${steps.toLocaleString()} 步適合搭配什麼 Pikmin 任務？）
 
-風格：像熟識台北街頭的玩家朋友，不要太正經，務實。控制在 500 字內。`;
+風格：像熟識${cityShortName}街頭的玩家朋友，不要太正經，務實。控制在 500 字內。`;
 }
 
 // ─────────── 城市切換 ───────────
