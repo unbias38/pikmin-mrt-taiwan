@@ -176,6 +176,20 @@ function selectStation(s) {
   state.markers.forEach(m => m.setStyle({ radius: 6, weight: 2 }));
   const m = state.markers.get(s.id);
   m.setStyle({ radius: 11, weight: 3 });
+
+  // 800m 範圍圈
+  if (state.rangeCircle) state.map.removeLayer(state.rangeCircle);
+  state.rangeCircle = L.circle([s.lat, s.lon], {
+    radius: 800,
+    color: '#10b981',
+    weight: 2,
+    opacity: 0.7,
+    fillColor: '#10b981',
+    fillOpacity: 0.05,
+    dashArray: '6 4',
+    interactive: false
+  }).addTo(state.map);
+
   state.map.flyTo([s.lat, s.lon], 15, { duration: 0.5 });
 
   renderStationInfo(s);
