@@ -252,25 +252,26 @@ function renderDecorList(s) {
 }
 
 function clearPoiLayer() {
-  if (state.poiLayer) {
-    state.map.removeLayer(state.poiLayer);
-    state.poiLayer = null;
-  }
-  state.activeDecor = null;
+  state.activeLayers?.forEach(layer => state.map.removeLayer(layer));
+  state.activeLayers = new Map();
   document.querySelectorAll('.decor-card.active').forEach(c => c.classList.remove('active'));
 }
 
 function togglePoiLayer(decor) {
-  if (state.activeDecor === decor) { clearPoiLayer(); return; }
-  clearPoiLayer();
+  if (!state.activeLayers) state.activeLayers = new Map();
+
+  if (state.activeLayers.has(decor)) {
+    state.map.removeLayer(state.activeLayers.get(decor));
+    state.activeLayers.delete(decor);
+    document.querySelector(`.decor-card[data-decor="${decor}"]`)?.classList.remove('active');
+    return;
+  }
 
   const poiData = state.pois[state.selectedStation.id];
   if (!poiData) return;
   const meta = state.mapping.decorTypes[decor];
   const list = poiData.pois.filter(p => p.decor === decor);
-
-  state.activeDecor = decor;
-  document.querySelector(`.decor-card[data-decor="${decor}"]`)?.classList.add('active');
+  if (!list.length) return;
 
   const markers = list.map(p =>
     L.marker([p.lat, p.lon], {
@@ -282,7 +283,9 @@ function togglePoiLayer(decor) {
       })
     }).bindTooltip(p.name || '(無名稱)', { direction: 'top', offset: [0, -20] })
   );
-  state.poiLayer = L.layerGroup(markers).addTo(state.map);
+  const layer = L.layerGroup(markers).addTo(state.map);
+  state.activeLayers.set(decor, layer);
+  document.querySelector(`.decor-card[data-decor="${decor}"]`)?.classList.add('active');
 }
 
 function resetAiOutput() {
