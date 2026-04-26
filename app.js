@@ -409,7 +409,7 @@ async function generateInsight() {
   try {
     const prompt = buildPrompt(s, poiData);
     const text = await callLLM(provider, model, apiKey, prompt);
-    out.textContent = text;
+    out.innerHTML = renderMarkdown(text);
   } catch (e) {
     out.innerHTML = `<p style="color:var(--pikmin-red)">❌ ${e.message}</p>
       <p class="hint">檢查 API Key 是否正確，或網路是否通。</p>`;
@@ -497,6 +497,41 @@ async function callOpenAI(model, key, prompt) {
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// 簡易 Markdown → HTML（支援標題、粗體、斜體、清單、段落）
+function renderMarkdown(text) {
+  let html = escapeHtml(text);
+  // 標題
+  html = html.replace(/^####\s+(.+)$/gm, '<h5>$1</h5>');
+  html = html.replace(/^###\s+(.+)$/gm, '<h4>$1</h4>');
+  html = html.replace(/^##\s+(.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^#\s+(.+)$/gm, '<h2>$1</h2>');
+  // 粗體 / 斜體
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/(^|[^*])\*([^*\n]+?)\*(?!\*)/g, '$1<em>$2</em>');
+  // 清單：連續 - 或 * 起首的行包成 <ul>
+  const lines = html.split('\n');
+  const out = [];
+  let inList = false;
+  for (const line of lines) {
+    const m = line.match(/^[-*]\s+(.+)$/);
+    if (m) {
+      if (!inList) { out.push('<ul>'); inList = true; }
+      out.push(`<li>${m[1]}</li>`);
+    } else {
+      if (inList) { out.push('</ul>'); inList = false; }
+      out.push(line);
+    }
+  }
+  if (inList) out.push('</ul>');
+  // 把連續空行視為段落分隔，其它換行保留
+  return out.join('\n')
+    .replace(/\n{2,}/g, '</p><p>')
+    .replace(/^/, '<p>')
+    .replace(/$/, '</p>')
+    .replace(/<p>(\s*<(h[2-6]|ul)>)/g, '$1')
+    .replace(/(<\/(h[2-6]|ul)>\s*)<\/p>/g, '$1');
 }
 
 // ─────────── 排行 Modal ───────────
@@ -881,7 +916,7 @@ async function generateRouteInsight() {
   try {
     const prompt = buildRoutePrompt();
     const text = await callLLM(provider, model, apiKey, prompt);
-    out.textContent = text;
+    out.innerHTML = renderMarkdown(text);
   } catch (e) {
     out.innerHTML = `<p style="color:var(--pikmin-red)">❌ ${e.message}</p>`;
   } finally { btn.disabled = false; }

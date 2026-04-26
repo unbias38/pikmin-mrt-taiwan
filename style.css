@@ -324,8 +324,22 @@ html, body {
   font-size: 13px;
   line-height: 1.7;
   color: #cbd5e1;
-  white-space: pre-wrap;
 }
+.ai-output p { margin: 0 0 10px; }
+.ai-output p:last-child { margin-bottom: 0; }
+.ai-output h2, .ai-output h3, .ai-output h4, .ai-output h5 {
+  color: var(--accent);
+  font-weight: 700;
+  margin: 14px 0 6px;
+}
+.ai-output h2 { font-size: 16px; }
+.ai-output h3 { font-size: 14px; }
+.ai-output h4, .ai-output h5 { font-size: 13px; }
+.ai-output h2:first-child, .ai-output h3:first-child { margin-top: 0; }
+.ai-output strong { color: var(--text-1); font-weight: 700; }
+.ai-output em { color: var(--text-1); font-style: italic; }
+.ai-output ul { margin: 6px 0 10px 18px; padding: 0; }
+.ai-output li { margin: 3px 0; }
 .ai-output .hint { color: var(--text-3); font-size: 12px; }
 
 .spinner {
