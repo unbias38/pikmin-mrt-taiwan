@@ -127,6 +127,69 @@ html, body {
   gap: 16px;
 }
 
+/* Mode tabs */
+.mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg-2);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+.mode-tab {
+  background: transparent;
+  color: var(--text-2);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.mode-tab:hover { color: var(--text-1); }
+.mode-tab.active {
+  background: var(--bg-0);
+  color: var(--accent);
+}
+.mode-panel { display: flex; flex-direction: column; gap: 16px; }
+
+/* Route picker */
+.route-picker { display: flex; flex-direction: column; gap: 8px; }
+.route-picker label { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+.route-picker input {
+  width: 100%;
+  background: var(--bg-2);
+  color: var(--text-1);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.route-picker input:focus { outline: none; border-color: var(--accent); }
+.full-btn { width: 100%; padding: 10px; font-size: 13px; margin-top: 4px; }
+
+.route-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 6px;
+}
+.stat-tile {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-num { font-size: 18px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 10px; color: var(--text-3); }
+
+/* Route line on map */
+.route-line { stroke: #10b981; stroke-width: 5; stroke-opacity: 0.85; }
+
 /* Station picker */
 .station-picker label {
   display: block;

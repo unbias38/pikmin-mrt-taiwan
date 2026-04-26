@@ -602,5 +602,333 @@ function initRanking() {
     document.getElementById('rankingModal').classList.add('hidden');
 }
 
+// ─────────── 路線規劃模式 ───────────
+const ROUTE_BUFFER_M = 400;
+
+function initModeTabs() {
+  document.querySelectorAll('.mode-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchMode(tab.dataset.mode));
+  });
+}
+
+function switchMode(mode) {
+  document.querySelectorAll('.mode-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.mode === mode));
+  document.getElementById('stationMode').classList.toggle('hidden', mode !== 'station');
+  document.getElementById('routeMode').classList.toggle('hidden', mode !== 'route');
+  state.mode = mode;
+  // 切到路線模式時清掉單站圈圈、Decor pin
+  if (mode === 'route') {
+    if (state.rangeCircle) { state.map.removeLayer(state.rangeCircle); state.rangeCircle = null; }
+    clearPoiLayer();
+  } else {
+    clearRoute();
+    if (state.selectedStation) selectStation(state.selectedStation);
+  }
+}
+
+function initRoutePicker() {
+  const tryMatchRoute = (v) => state.stations.find(x =>
+    v === `${x.name} (${x.lines.map(l => l.ref).join('/')})` || v === x.name);
+  ['routeOrigin', 'routeDest'].forEach(id => {
+    const inp = document.getElementById(id);
+    inp.addEventListener('focus', e => e.target.select());
+  });
+  document.getElementById('planRouteBtn').onclick = planRoute;
+}
+
+async function planRoute() {
+  const tryMatch = v => state.stations.find(x =>
+    v === `${x.name} (${x.lines.map(l => l.ref).join('/')})` || v === x.name);
+  const origin = tryMatch(document.getElementById('routeOrigin').value);
+  const dest   = tryMatch(document.getElementById('routeDest').value);
+  if (!origin || !dest) { alert('請選擇有效的起點與終點'); return; }
+  if (origin.id === dest.id) { alert('起點與終點不能相同'); return; }
+
+  const btn = document.getElementById('planRouteBtn');
+  btn.disabled = true;
+  btn.textContent = '計算中...';
+  try {
+    const route = await fetchOSRMRoute(origin, dest);
+    state.route = { origin, dest, ...route };
+    state.route.buffered = filterPoisInBuffer(route.geometry, ROUTE_BUFFER_M);
+    renderRoute();
+  } catch (e) {
+    alert('路線計算失敗：' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '規劃步行路線';
+  }
+}
+
+async function fetchOSRMRoute(origin, dest) {
+  const url = `https://router.project-osrm.org/route/v1/foot/${origin.lon},${origin.lat};${dest.lon},${dest.lat}?overview=full&geometries=geojson`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`OSRM HTTP ${res.status}`);
+  const data = await res.json();
+  if (data.code !== 'Ok' || !data.routes?.length) throw new Error(data.message || '找不到路徑');
+  const r = data.routes[0];
+  // OSRM demo server foot profile 給的時間其實是車速，自己用 1.4 m/s ≈ 5km/h 換算
+  const walkingDuration = r.distance / 1.4;
+  return { geometry: r.geometry, distance: r.distance, duration: walkingDuration };
+}
+
+// 取得去重後的全網 POI 清單（cache）
+function getAllPois() {
+  if (state._allPoisCache) return state._allPoisCache;
+  const seen = new Set();
+  const all = [];
+  Object.values(state.pois).forEach(s => {
+    s.pois.forEach(p => {
+      const key = `${p.type}-${p.id}`;
+      if (!seen.has(key)) { seen.add(key); all.push(p); }
+    });
+  });
+  state._allPoisCache = all;
+  return all;
+}
+
+// Haversine 距離（公尺）
+function haversineM(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// 對 GeoJSON LineString，取每點到 POI 最小距離
+function minDistanceToLine(poi, coords) {
+  let min = Infinity;
+  for (let i = 0; i < coords.length; i++) {
+    const [lon, lat] = coords[i];
+    const d = haversineM(poi.lat, poi.lon, lat, lon);
+    if (d < min) min = d;
+    if (min < 50) return min; // 早結束
+  }
+  return min;
+}
+
+function filterPoisInBuffer(geometry, bufferM) {
+  const coords = geometry.coordinates; // [[lon,lat], ...]
+  // 先用 bbox 粗篩
+  let minLat = Infinity, maxLat = -Infinity, minLon = Infinity, maxLon = -Infinity;
+  coords.forEach(([lon, lat]) => {
+    if (lat < minLat) minLat = lat;
+    if (lat > maxLat) maxLat = lat;
+    if (lon < minLon) minLon = lon;
+    if (lon > maxLon) maxLon = lon;
+  });
+  // 緯度 1 度 ≈ 111km，bufferM 換算
+  const dLat = bufferM / 111000;
+  const dLon = bufferM / (111000 * Math.cos((minLat + maxLat) / 2 * Math.PI / 180));
+  minLat -= dLat; maxLat += dLat; minLon -= dLon; maxLon += dLon;
+
+  const all = getAllPois();
+  const inBox = all.filter(p =>
+    p.lat >= minLat && p.lat <= maxLat && p.lon >= minLon && p.lon <= maxLon);
+
+  const inBuffer = inBox.filter(p => minDistanceToLine(p, coords) <= bufferM);
+  const summary = {};
+  inBuffer.forEach(p => { summary[p.decor] = (summary[p.decor] || 0) + 1; });
+  return { pois: inBuffer, summary };
+}
+
+function clearRoute() {
+  if (state.routeLayer) { state.map.removeLayer(state.routeLayer); state.routeLayer = null; }
+  if (state.routeMarkersLayer) { state.map.removeLayer(state.routeMarkersLayer); state.routeMarkersLayer = null; }
+  state.routeActiveLayers?.forEach(l => state.map.removeLayer(l));
+  state.routeActiveLayers = new Map();
+  document.getElementById('routeStats').classList.add('hidden');
+  document.getElementById('routeAiPanel').classList.add('hidden');
+  document.getElementById('routeDecorList').innerHTML = '';
+  document.getElementById('routeAiOutput').innerHTML = '<p class="hint">規劃路線後，點「生成攻略」讓 AI 寫沿路導覽、必停的稀有 Decor、推薦時段。</p>';
+}
+
+function renderRoute() {
+  clearRoute();
+  const { geometry, distance, duration, buffered, origin, dest } = state.route;
+
+  // 路線線條
+  state.routeLayer = L.geoJSON(geometry, {
+    style: { color: '#10b981', weight: 5, opacity: 0.85 }
+  }).addTo(state.map);
+
+  // 端點 marker
+  const endpointStyle = (color) => L.circleMarker([0,0], {
+    radius: 9, fillColor: color, color: '#fff', weight: 3, fillOpacity: 1
+  });
+  state.routeMarkersLayer = L.layerGroup([
+    L.circleMarker([origin.lat, origin.lon], { radius: 9, fillColor: '#34d399', color: '#fff', weight: 3, fillOpacity: 1 })
+      .bindTooltip(`起點：${origin.name}`, { direction: 'top' }),
+    L.circleMarker([dest.lat, dest.lon], { radius: 9, fillColor: '#ef4444', color: '#fff', weight: 3, fillOpacity: 1 })
+      .bindTooltip(`終點：${dest.name}`, { direction: 'top' })
+  ]).addTo(state.map);
+
+  // 縮放到路線範圍
+  state.map.fitBounds(state.routeLayer.getBounds(), { padding: [50, 50] });
+
+  // 統計數字
+  const km   = (distance / 1000).toFixed(2);
+  const min  = Math.round(duration / 60);
+  const steps = Math.round(distance * 1.3);
+  document.getElementById('routeDistance').textContent = km;
+  document.getElementById('routeDuration').textContent = min;
+  document.getElementById('routeSteps').textContent = steps.toLocaleString();
+  document.getElementById('routeDecorTypes').textContent = Object.keys(buffered.summary).length;
+  document.getElementById('routeStats').classList.remove('hidden');
+
+  renderRouteDecorList(buffered.summary);
+  document.getElementById('routeAiPanel').classList.remove('hidden');
+}
+
+function renderRouteDecorList(summary) {
+  const el = document.getElementById('routeDecorList');
+  const items = Object.entries(summary)
+    .map(([decor, count]) => ({ decor, count, meta: state.mapping.decorTypes[decor] }))
+    .filter(x => x.meta)
+    .sort((a, b) => {
+      const conf = { high: 0, medium: 1, low: 2 };
+      const c = conf[a.meta.confidence] - conf[b.meta.confidence];
+      return c !== 0 ? c : b.count - a.count;
+    });
+
+  el.innerHTML = items.map(({ decor, count, meta }) => `
+    <div class="decor-card confidence-${meta.confidence}" data-conf="${meta.confidence}" data-decor="${decor}" title="${meta.note || ''}（點擊在地圖上顯示）">
+      <span class="decor-emoji">${meta.emoji}</span>
+      <div class="decor-info">
+        <div class="decor-name">${meta.zh}</div>
+        <div class="decor-count">${count} 個 POI</div>
+      </div>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('.decor-card').forEach(card => {
+    card.addEventListener('click', () => toggleRoutePoiLayer(card.dataset.decor));
+  });
+}
+
+function toggleRoutePoiLayer(decor) {
+  if (!state.routeActiveLayers) state.routeActiveLayers = new Map();
+  if (state.routeActiveLayers.has(decor)) {
+    state.map.removeLayer(state.routeActiveLayers.get(decor));
+    state.routeActiveLayers.delete(decor);
+    document.querySelector(`#routeDecorList .decor-card[data-decor="${decor}"]`)?.classList.remove('active');
+    return;
+  }
+  const meta = state.mapping.decorTypes[decor];
+  const list = state.route.buffered.pois.filter(p => p.decor === decor);
+  if (!list.length) return;
+
+  const markers = list.map(p => {
+    const name = p.name || '(無名稱地點)';
+    const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + p.lat + ',' + p.lon)}`;
+    const osmUrl = `https://www.openstreetmap.org/${p.type}/${p.id}`;
+    const detailRows = [
+      p.addr   ? `<div class="poi-popup-row">🏠 ${escapeHtml(p.addr)}</div>` : '',
+      p.brand  ? `<div class="poi-popup-row">🏷️ ${escapeHtml(p.brand)}</div>` : '',
+      p.cuisine? `<div class="poi-popup-row">🍽️ ${escapeHtml(p.cuisine)}</div>` : '',
+      p.hours  ? `<div class="poi-popup-row">🕐 ${escapeHtml(p.hours)}</div>` : '',
+      p.phone  ? `<div class="poi-popup-row">📞 <a href="tel:${escapeHtml(p.phone)}">${escapeHtml(p.phone)}</a></div>` : '',
+      p.web    ? `<div class="poi-popup-row">🌐 <a href="${escapeHtml(p.web)}" target="_blank" rel="noopener">官網</a></div>` : ''
+    ].filter(Boolean).join('');
+    const popupHtml = `
+      <div class="poi-popup">
+        <div class="poi-popup-header">
+          <span class="poi-popup-emoji">${meta.emoji}</span>
+          <div>
+            <div class="poi-popup-name">${escapeHtml(name)}</div>
+            <div class="poi-popup-decor">${meta.zh} Decor</div>
+          </div>
+        </div>
+        ${detailRows ? `<div class="poi-popup-details">${detailRows}</div>` : ''}
+        <div class="poi-popup-coord">📍 ${p.lat.toFixed(5)}, ${p.lon.toFixed(5)}</div>
+        <div class="poi-popup-actions">
+          <a href="${gmapsUrl}" target="_blank" rel="noopener" class="poi-popup-btn primary">在 Google Maps 開啟</a>
+          <a href="${osmUrl}" target="_blank" rel="noopener" class="poi-popup-btn">OSM 原始資料</a>
+        </div>
+      </div>`;
+    return L.marker([p.lat, p.lon], {
+      icon: L.divIcon({
+        html: `<div class="poi-pin"><span>${meta.emoji}</span></div>`,
+        className: 'poi-pin-wrap',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28]
+      })
+    })
+    .bindTooltip(name, { direction: 'top', offset: [0, -22] })
+    .bindPopup(popupHtml, { className: 'poi-popup-wrap', maxWidth: 280 });
+  });
+  const layer = L.layerGroup(markers).addTo(state.map);
+  state.routeActiveLayers.set(decor, layer);
+  document.querySelector(`#routeDecorList .decor-card[data-decor="${decor}"]`)?.classList.add('active');
+}
+
+// ─────────── 路線 AI 攻略 ───────────
+function initRouteAi() {
+  document.getElementById('generateRouteBtn').onclick = generateRouteInsight;
+}
+
+async function generateRouteInsight() {
+  if (!state.route) return;
+  const { apiKey, provider, model } = state.settings;
+  if (!apiKey) { alert('請先到「⚙️ 設定」填入 API Key'); openSettings(); return; }
+
+  const btn = document.getElementById('generateRouteBtn');
+  const out = document.getElementById('routeAiOutput');
+  btn.disabled = true;
+  out.innerHTML = '<span class="spinner"></span> 分析中...';
+  try {
+    const prompt = buildRoutePrompt();
+    const text = await callLLM(provider, model, apiKey, prompt);
+    out.textContent = text;
+  } catch (e) {
+    out.innerHTML = `<p style="color:var(--pikmin-red)">❌ ${e.message}</p>`;
+  } finally { btn.disabled = false; }
+}
+
+function buildRoutePrompt() {
+  const { origin, dest, distance, duration, buffered } = state.route;
+  const km = (distance / 1000).toFixed(2);
+  const min = Math.round(duration / 60);
+  const steps = Math.round(distance * 1.3);
+
+  const decorList = Object.entries(buffered.summary)
+    .sort((a, b) => b[1] - a[1])
+    .map(([d, c]) => {
+      const m = state.mapping.decorTypes[d];
+      return m ? `${m.emoji} ${m.zh}：${c} 個` : null;
+    })
+    .filter(Boolean).join('\n');
+
+  return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃台北捷運站之間的步行散步攻略。
+
+【路線】從 ${origin.name}站 走到 ${dest.name}站
+【距離】${km} km，預計 ${min} 分鐘步行，約 ${steps.toLocaleString()} 步
+【沿路 ${ROUTE_BUFFER_M}m 範圍內可拿到的 Decor】
+${decorList}
+
+請用繁體中文，給出有條理的散步攻略：
+
+## 一、推薦走法
+（路線該怎麼走最好玩？哪段建議彎進巷子、哪段直走？沿路有什麼值得關注的地段？）
+
+## 二、必停亮點
+（沿路最稀有 / 最有特色的 Decor 在哪一段？哪幾種值得專程繞一下拿到？）
+
+## 三、最佳時段
+（早上/中午/晚上各自適合走嗎？避開人潮的建議）
+
+## 四、步數小目標
+（${steps.toLocaleString()} 步適合搭配什麼 Pikmin 任務？）
+
+風格：像熟識台北街頭的玩家朋友，不要太正經，務實。控制在 500 字內。`;
+}
+
 // ─────────── 啟動 ───────────
-init().then(initRanking);
+init().then(() => {
+  initRanking();
+  initModeTabs();
+  initRoutePicker();
+  initRouteAi();
+});

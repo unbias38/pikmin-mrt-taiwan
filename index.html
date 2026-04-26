@@ -31,32 +31,70 @@
     </section>
 
     <aside class="info-pane">
-      <div class="station-picker">
-        <label for="stationSelect">選擇捷運站</label>
-        <input list="stationList" id="stationSelect" placeholder="輸入或選擇站名（例：中山）" autocomplete="off" />
-        <datalist id="stationList"></datalist>
+      <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="station">🚉 單站查詢</button>
+        <button class="mode-tab" data-mode="route">🚶 路線規劃</button>
       </div>
 
-      <div id="stationInfo" class="station-info hidden">
-        <div class="station-header">
-          <h2 id="stationName">—</h2>
-          <div id="stationLines" class="lines"></div>
+      <!-- 單站模式 -->
+      <div id="stationMode" class="mode-panel">
+        <div class="station-picker">
+          <label for="stationSelect">選擇捷運站</label>
+          <input list="stationList" id="stationSelect" placeholder="輸入或選擇站名（例：中山）" autocomplete="off" />
+          <datalist id="stationList"></datalist>
         </div>
-        <div class="station-stats">
-          <div><span id="poiCount">0</span> 個有效 POI（800m 內）</div>
-          <div><span id="decorCount">0</span> 種可拿 Decor</div>
+
+        <div id="stationInfo" class="station-info hidden">
+          <div class="station-header">
+            <h2 id="stationName">—</h2>
+            <div id="stationLines" class="lines"></div>
+          </div>
+          <div class="station-stats">
+            <div><span id="poiCount">0</span> 個有效 POI（800m 內）</div>
+            <div><span id="decorCount">0</span> 種可拿 Decor</div>
+          </div>
+        </div>
+
+        <div id="decorList" class="decor-list"></div>
+
+        <div id="aiPanel" class="ai-panel hidden">
+          <div class="ai-header">
+            <h3>✨ AI 散步攻略</h3>
+            <button id="generateBtn" class="primary-btn">生成攻略</button>
+          </div>
+          <div id="aiOutput" class="ai-output">
+            <p class="hint">選擇站點後，點「生成攻略」讓 AI 推薦這站的散步路線、推薦時段、Decor 收集重點。</p>
+          </div>
         </div>
       </div>
 
-      <div id="decorList" class="decor-list"></div>
-
-      <div id="aiPanel" class="ai-panel hidden">
-        <div class="ai-header">
-          <h3>✨ AI 散步攻略</h3>
-          <button id="generateBtn" class="primary-btn">生成攻略</button>
+      <!-- 路線模式 -->
+      <div id="routeMode" class="mode-panel hidden">
+        <div class="route-picker">
+          <label for="routeOrigin">起點站</label>
+          <input list="stationList" id="routeOrigin" placeholder="例：中山" autocomplete="off" />
+          <label for="routeDest">終點站</label>
+          <input list="stationList" id="routeDest" placeholder="例：台北車站" autocomplete="off" />
+          <button id="planRouteBtn" class="primary-btn full-btn">規劃步行路線</button>
         </div>
-        <div id="aiOutput" class="ai-output">
-          <p class="hint">選擇站點後，點「生成攻略」讓 AI 推薦這站的散步路線、推薦時段、Decor 收集重點。</p>
+
+        <div id="routeStats" class="route-stats hidden">
+          <div class="stat-tile"><span class="stat-num" id="routeDistance">—</span><span class="stat-label">公里</span></div>
+          <div class="stat-tile"><span class="stat-num" id="routeDuration">—</span><span class="stat-label">分鐘</span></div>
+          <div class="stat-tile"><span class="stat-num" id="routeSteps">—</span><span class="stat-label">步</span></div>
+          <div class="stat-tile"><span class="stat-num" id="routeDecorTypes">—</span><span class="stat-label">種 Decor</span></div>
+        </div>
+
+        <div id="routeDecorList" class="decor-list"></div>
+
+        <div id="routeAiPanel" class="ai-panel hidden">
+          <div class="ai-header">
+            <h3>✨ AI 路線攻略</h3>
+            <button id="generateRouteBtn" class="primary-btn">生成攻略</button>
+          </div>
+          <div id="routeAiOutput" class="ai-output">
+            <p class="hint">規劃路線後，點「生成攻略」讓 AI 寫沿路導覽、必停的稀有 Decor、推薦時段。</p>
+          </div>
         </div>
       </div>
 
@@ -121,6 +159,6 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
