@@ -44,10 +44,13 @@ const stations = [...allStations].sort((a, b) => {
 });
 
 const OUT = path.join(ROOT, 'data/pois.json');
+const FORCE = process.env.FORCE === '1';
 let out = {};
 if (fs.existsSync(OUT)) {
   out = JSON.parse(fs.readFileSync(OUT, 'utf8'));
-  console.log(`已存在 ${Object.keys(out).length} 站，續傳...`);
+  console.log(FORCE
+    ? `已存在 ${Object.keys(out).length} 站，FORCE=1 全部重抓...`
+    : `已存在 ${Object.keys(out).length} 站，續傳...`);
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -147,7 +150,7 @@ const startAt = Date.now();
 
 for (const s of stations) {
   done++;
-  if (out[s.id]) { skipped++; continue; }
+  if (out[s.id] && !FORCE) { skipped++; continue; }
 
   process.stdout.write(`[${done}/${total}] ${s.name.padEnd(8)} ... `);
   try {
