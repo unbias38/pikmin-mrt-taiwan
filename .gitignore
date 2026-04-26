@@ -14,3 +14,7 @@ node_modules/
 # Local logs / temp
 data/_*
 *.log
+
+# 輸入素材（task 規格、參考文件）— 本地保留，不進 repo
+task*.txt
+參考*.txt
