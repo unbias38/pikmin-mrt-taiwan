@@ -800,6 +800,7 @@ async function planRoute() {
     const route = await fetchOSRMRoute(origin, dest);
     state.route = { origin, dest, ...route };
     state.route.buffered = filterPoisInBuffer(route.geometry, ROUTE_BUFFER_M);
+    state.route.stationsOnPath = findStationsOnPath(route.geometry, 500);
     renderRoute();
   } catch (e) {
     alert('路線計算失敗：' + e.message);
@@ -807,6 +808,14 @@ async function planRoute() {
     btn.disabled = false;
     btn.textContent = '規劃步行路線';
   }
+}
+
+// 找出在路徑 500m 內的所有捷運站（用於沿路運量分析）
+function findStationsOnPath(geometry, distM) {
+  const coords = geometry.coordinates;
+  return state.stations.filter(s =>
+    minDistanceToLine({ lat: s.lat, lon: s.lon }, coords) <= distM
+  );
 }
 
 async function fetchOSRMRoute(origin, dest) {
@@ -927,7 +936,49 @@ function renderRoute() {
   document.getElementById('routeStats').classList.remove('hidden');
 
   renderRouteDecorList(buffered.summary);
+  renderRouteRidership();
   document.getElementById('routeAiPanel').classList.remove('hidden');
+}
+
+function renderRouteRidership() {
+  const el = document.getElementById('routeRidership');
+  if (!el || !state.ridership || !state.ridershipStats) {
+    el?.classList.add('hidden');
+    return;
+  }
+  const stationsOnPath = state.route.stationsOnPath || [];
+  const months = state.ridership._meta.months;
+  const latest = months[months.length - 1];
+  const stationData = stationsOnPath.map(s => {
+    const r = state.ridership.stations[s.name]?.[latest];
+    const rank = state.ridershipStats.ranks.get(s.name);
+    return { name: s.name, entries: r?.entries || 0, rank: rank?.rank, percentile: rank?.percentile };
+  }).filter(x => x.entries > 0);
+
+  if (!stationData.length) { el.classList.add('hidden'); return; }
+  el.classList.remove('hidden');
+
+  const avgEntries = stationData.reduce((s, x) => s + x.entries, 0) / stationData.length;
+  const avgPercentile = stationData.reduce((s, x) => s + x.percentile, 0) / stationData.length;
+  const overallCrowd = crowdLevel(avgPercentile);
+
+  el.innerHTML = `
+    <div class="ridership-header">
+      <span class="ridership-title">🚆 沿路 ${stationData.length} 站平均人潮</span>
+      <span class="crowd-badge" style="background:${overallCrowd.color}20;color:${overallCrowd.color}">${overallCrowd.label}</span>
+    </div>
+    <div class="route-station-rows">
+      ${stationData.sort((a,b) => b.entries - a.entries).map(s => {
+        const c = crowdLevel(s.percentile);
+        return `<div class="route-station-row" style="--bar-color:${c.color}">
+          <span class="rs-name">${s.name}</span>
+          <span class="rs-rank">#${s.rank}</span>
+          <span class="rs-bar"><span class="rs-bar-fill" style="width:${(1-s.percentile)*100}%;background:${c.color}"></span></span>
+          <span class="rs-num">${(s.entries/1000000).toFixed(2)}M</span>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
 }
 
 function renderRouteDecorList(summary) {
@@ -1049,12 +1100,38 @@ function buildRoutePrompt() {
     })
     .filter(Boolean).join('\n');
 
+  // 沿路運量
+  let ridershipBlock = '';
+  if (state.ridership && state.ridershipStats && state.route.stationsOnPath) {
+    const months = state.ridership._meta.months;
+    const latest = months[months.length - 1];
+    const stationData = state.route.stationsOnPath.map(s => {
+      const r = state.ridership.stations[s.name]?.[latest];
+      const rank = state.ridershipStats.ranks.get(s.name);
+      return { name: s.name, entries: r?.entries || 0, rank: rank?.rank, percentile: rank?.percentile };
+    }).filter(x => x.entries > 0);
+    if (stationData.length) {
+      const avgPercentile = stationData.reduce((s, x) => s + x.percentile, 0) / stationData.length;
+      const overall = crowdLevel(avgPercentile);
+      const stationListStr = stationData
+        .sort((a,b) => b.entries - a.entries)
+        .map(s => `${s.name}：${(s.entries/1000000).toFixed(2)}M（#${s.rank}/108）`)
+        .join('\n');
+      ridershipBlock = `
+【沿路車站人潮資訊】（最近月份 ${latest.slice(0,4)}/${latest.slice(4)}）
+${stationListStr}
+整段平均：${overall.label.replace(/^\\W+/, '')}
+`;
+    }
+  }
+
   return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃台北捷運站之間的步行散步攻略。
 
 【路線】從 ${origin.name}站 走到 ${dest.name}站
 【距離】${km} km，預計 ${min} 分鐘步行，約 ${steps.toLocaleString()} 步
 【沿路 ${ROUTE_BUFFER_M}m 範圍內可拿到的 Decor】
 ${decorList}
+${ridershipBlock}
 
 請用繁體中文，給出有條理的散步攻略：
 
@@ -1065,7 +1142,7 @@ ${decorList}
 （沿路最稀有 / 最有特色的 Decor 在哪一段？哪幾種值得專程繞一下拿到？）
 
 ## 三、最佳時段
-（早上/中午/晚上各自適合走嗎？避開人潮的建議）
+（基於沿路人潮資訊：早上/中午/晚上 / 平日 vs 假日，給具體時段推薦。哪段是人潮熱點要避開？）
 
 ## 四、步數小目標
 （${steps.toLocaleString()} 步適合搭配什麼 Pikmin 任務？）
