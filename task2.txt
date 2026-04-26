@@ -1,0 +1,1 @@
+依據上傳的3個說明與程式參考(參考1-3.txt,task1.txt)，要建置一個專案，是可以Google AI 或Open AI API Key 輸入以後，以該LLM去進襲資料的洞察與分析，最後我要下載專案自己手動發布在Netlify

@@ -1,0 +1,125 @@
+{
+  "_meta": {
+    "version": "v1",
+    "note": "OSM tag → Pikmin Bloom Decor 類別對照表。Niantic 從未公開官方分類，本表為社群觀察推測。confidence=high 是高機率正確、low 是猜測，使用者實際遊玩可能有出入。",
+    "lastUpdated": "2026-04-26"
+  },
+
+  "decorTypes": {
+    "station":      { "zh": "車站",     "emoji": "🚉", "confidence": "high",   "note": "捷運站本身就是" },
+    "cafe":         { "zh": "咖啡",     "emoji": "☕", "confidence": "high" },
+    "restaurant":   { "zh": "餐廳",     "emoji": "🍴", "confidence": "high" },
+    "bakery":       { "zh": "麵包店",   "emoji": "🥐", "confidence": "high" },
+    "sweets":       { "zh": "甜點",     "emoji": "🍰", "confidence": "high",   "note": "蛋糕、冰淇淋、巧克力店" },
+    "sushi":        { "zh": "壽司",     "emoji": "🍣", "confidence": "high" },
+    "pizza":        { "zh": "披薩",     "emoji": "🍕", "confidence": "high" },
+    "ramen":        { "zh": "拉麵",     "emoji": "🍜", "confidence": "medium", "note": "Niantic 有時歸 restaurant" },
+    "burger":       { "zh": "漢堡",     "emoji": "🍔", "confidence": "high",   "note": "麥當勞合作有專屬款" },
+    "convenience":  { "zh": "便利商店", "emoji": "🏪", "confidence": "high",   "note": "7-11/全家/Lawson" },
+    "forest":       { "zh": "森林",     "emoji": "🌳", "confidence": "high",   "note": "公園/植物園" },
+    "waterside":    { "zh": "水邊",     "emoji": "🌊", "confidence": "high",   "note": "河邊/湖邊/海邊" },
+    "art":          { "zh": "美術",     "emoji": "🎨", "confidence": "high",   "note": "美術館/畫廊" },
+    "museum":       { "zh": "博物館",   "emoji": "🏛️", "confidence": "high" },
+    "movie":        { "zh": "電影院",   "emoji": "🎬", "confidence": "high" },
+    "music":        { "zh": "音樂",     "emoji": "🎵", "confidence": "medium", "note": "音樂廳/Live House" },
+    "sports":       { "zh": "運動",     "emoji": "⚽", "confidence": "high" },
+    "shrine":       { "zh": "寺廟/神社","emoji": "⛩️", "confidence": "high",   "note": "在台灣對應宮廟/教堂" },
+    "castle":       { "zh": "古蹟",     "emoji": "🏯", "confidence": "medium" },
+    "zoo":          { "zh": "動物園",   "emoji": "🦁", "confidence": "high" },
+    "aquarium":     { "zh": "水族館",   "emoji": "🐠", "confidence": "high" },
+    "landmark":     { "zh": "地標",     "emoji": "📍", "confidence": "medium", "note": "知名觀光景點" },
+    "post":         { "zh": "郵局",     "emoji": "📮", "confidence": "medium", "note": "日本系統，台灣不確定" },
+    "library":      { "zh": "圖書館",   "emoji": "📚", "confidence": "low",    "note": "可能算 art/museum" },
+    "hotel":        { "zh": "飯店",     "emoji": "🏨", "confidence": "low",    "note": "不確定有無對應 Decor" }
+  },
+
+  "rules": {
+    "amenity": {
+      "cafe":             "cafe",
+      "restaurant":       "restaurant",
+      "fast_food":        "burger",
+      "ice_cream":        "sweets",
+      "bar":              "restaurant",
+      "pub":              "restaurant",
+      "food_court":       "restaurant",
+      "biergarten":       "restaurant",
+      "cinema":           "movie",
+      "theatre":          "music",
+      "arts_centre":      "art",
+      "nightclub":        "music",
+      "library":          "library",
+      "place_of_worship": "shrine",
+      "post_office":      "post",
+      "townhall":         "landmark",
+      "fountain":         "landmark"
+    },
+    "shop": {
+      "bakery":       "bakery",
+      "pastry":       "sweets",
+      "confectionery":"sweets",
+      "chocolate":    "sweets",
+      "convenience":  "convenience",
+      "supermarket":  "convenience",
+      "books":        "library",
+      "art":          "art"
+    },
+    "leisure": {
+      "park":           "forest",
+      "garden":         "forest",
+      "nature_reserve": "forest",
+      "playground":     "forest",
+      "stadium":        "sports",
+      "sports_centre":  "sports",
+      "pitch":          "sports",
+      "fitness_centre": "sports",
+      "swimming_pool":  "waterside",
+      "marina":         "waterside",
+      "water_park":     "waterside"
+    },
+    "tourism": {
+      "museum":     "museum",
+      "gallery":    "art",
+      "artwork":    "art",
+      "attraction": "landmark",
+      "viewpoint":  "landmark",
+      "zoo":        "zoo",
+      "aquarium":   "aquarium",
+      "theme_park": "landmark",
+      "hotel":      "hotel"
+    },
+    "historic": {
+      "monument": "castle",
+      "memorial": "castle",
+      "ruins":    "castle",
+      "castle":   "castle",
+      "fort":     "castle"
+    },
+    "natural": {
+      "water":  "waterside",
+      "beach":  "waterside",
+      "wood":   "forest",
+      "spring": "waterside"
+    },
+    "railway": {
+      "station": "station"
+    },
+    "public_transport": {
+      "station": "station"
+    },
+    "waterway": {
+      "river": "waterside",
+      "stream": "waterside"
+    }
+  },
+
+  "ignore": [
+    "amenity=parking", "amenity=parking_space", "amenity=parking_entrance",
+    "amenity=drinking_water", "amenity=toilets", "amenity=vending_machine",
+    "amenity=post_box", "amenity=bench", "amenity=shelter", "amenity=waste_basket",
+    "amenity=bicycle_parking", "amenity=motorcycle_parking", "amenity=atm",
+    "amenity=bicycle_rental", "amenity=charging_station",
+    "natural=tree", "natural=tree_row",
+    "shop=hairdresser", "shop=beauty", "shop=clothes", "shop=shoes",
+    "shop=mobile_phone", "shop=optician", "shop=jewelry"
+  ]
+}

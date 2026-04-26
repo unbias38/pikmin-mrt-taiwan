@@ -1,0 +1,2060 @@
+[
+  {
+    "osmId": 3639530980,
+    "name": "頂埔",
+    "nameEn": "Dingpu",
+    "aliases": [],
+    "lat": 24.9597337,
+    "lon": 121.4194769,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "01",
+        "ref": "BL01",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "001"
+  },
+  {
+    "osmId": 373399546,
+    "name": "永寧",
+    "nameEn": "Yongning",
+    "aliases": [],
+    "lat": 24.9668719,
+    "lon": 121.4362698,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "02",
+        "ref": "BL02",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "002"
+  },
+  {
+    "osmId": 373399553,
+    "name": "土城",
+    "nameEn": "Tucheng",
+    "aliases": [],
+    "lat": 24.9731817,
+    "lon": 121.444391,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "03",
+        "ref": "BL03",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "003"
+  },
+  {
+    "osmId": 3639530951,
+    "name": "海山",
+    "nameEn": "Haishan",
+    "aliases": [],
+    "lat": 24.9853177,
+    "lon": 121.4487858,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "04",
+        "ref": "BL04",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "004"
+  },
+  {
+    "osmId": 3639530940,
+    "name": "亞東醫院",
+    "nameEn": "Far Eastern Hospital",
+    "aliases": [],
+    "lat": 24.9975221,
+    "lon": 121.4523632,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "05",
+        "ref": "BL05",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "005"
+  },
+  {
+    "osmId": 3639530943,
+    "name": "府中",
+    "nameEn": "Fuzhong",
+    "aliases": [],
+    "lat": 25.0087697,
+    "lon": 121.4592803,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "06",
+        "ref": "BL06",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "006"
+  },
+  {
+    "osmId": 3639530948,
+    "name": "板橋",
+    "nameEn": "Banqiao",
+    "aliases": [],
+    "lat": 25.0144988,
+    "lon": 121.462992,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "07",
+        "ref": "BL07",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "007"
+  },
+  {
+    "osmId": 3639530946,
+    "name": "新埔",
+    "nameEn": "Xinpu",
+    "aliases": [],
+    "lat": 25.0234603,
+    "lon": 121.4683057,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "08",
+        "ref": "BL08",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "008"
+  },
+  {
+    "osmId": 3639530950,
+    "name": "江子翠",
+    "nameEn": "Jiangzicui",
+    "aliases": [],
+    "lat": 25.0304238,
+    "lon": 121.4727783,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "09",
+        "ref": "BL09",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "009"
+  },
+  {
+    "osmId": 3639530981,
+    "name": "龍山寺",
+    "nameEn": "Longshan Temple",
+    "aliases": [],
+    "lat": 25.0352844,
+    "lon": 121.4995813,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "10",
+        "ref": "BL10",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "010"
+  },
+  {
+    "osmId": 3578751641,
+    "name": "善導寺",
+    "nameEn": "Shandao Temple",
+    "aliases": [],
+    "lat": 25.0447619,
+    "lon": 121.5234226,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "13",
+        "ref": "BL13",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "011"
+  },
+  {
+    "osmId": 3812564401,
+    "name": "忠孝新生",
+    "nameEn": "Zhongxiao Xinsheng",
+    "aliases": [],
+    "lat": 25.04229,
+    "lon": 121.5328383,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "14",
+        "ref": "BL14",
+        "color": "#0070BD",
+        "name": "板南線"
+      },
+      {
+        "code": "O",
+        "num": "07",
+        "ref": "O07",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "012"
+  },
+  {
+    "osmId": 3639530945,
+    "name": "忠孝敦化",
+    "nameEn": "Zhongxiao Dunhua",
+    "aliases": [],
+    "lat": 25.0415086,
+    "lon": 121.549479,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "16",
+        "ref": "BL16",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "013"
+  },
+  {
+    "osmId": 3639530942,
+    "name": "國父紀念館",
+    "nameEn": "Sun Yat-Sen Memorial Hall",
+    "aliases": [],
+    "lat": 25.0413418,
+    "lon": 121.5573918,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "17",
+        "ref": "BL17",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "014"
+  },
+  {
+    "osmId": 3512275767,
+    "name": "市政府",
+    "nameEn": "Taipei City Hall",
+    "aliases": [],
+    "lat": 25.0411283,
+    "lon": 121.5660998,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "18",
+        "ref": "BL18",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "015"
+  },
+  {
+    "osmId": 3639530949,
+    "name": "永春",
+    "nameEn": "Yongchun",
+    "aliases": [],
+    "lat": 25.0408761,
+    "lon": 121.5757045,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "19",
+        "ref": "BL19",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "016"
+  },
+  {
+    "osmId": 3639530944,
+    "name": "後山埤",
+    "nameEn": "Houshanpi",
+    "aliases": [],
+    "lat": 25.0447413,
+    "lon": 121.5823224,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "20",
+        "ref": "BL20",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "017"
+  },
+  {
+    "osmId": 3639530947,
+    "name": "昆陽",
+    "nameEn": "Kunyang",
+    "aliases": [],
+    "lat": 25.0504897,
+    "lon": 121.5933161,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "21",
+        "ref": "BL21",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "018"
+  },
+  {
+    "osmId": 3639530941,
+    "name": "南港",
+    "nameEn": "Nangang",
+    "aliases": [],
+    "lat": 25.0520905,
+    "lon": 121.607192,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "22",
+        "ref": "BL22",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "019"
+  },
+  {
+    "osmId": 1945578205,
+    "name": "南港展覽館",
+    "nameEn": "Taipei Nangang Exhibition Center",
+    "aliases": [],
+    "lat": 25.0545687,
+    "lon": 121.6172189,
+    "lines": [
+      {
+        "code": "BL",
+        "num": "23",
+        "ref": "BL23",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "020"
+  },
+  {
+    "osmId": 689422202,
+    "name": "動物園",
+    "nameEn": "Taipei Zoo",
+    "aliases": [],
+    "lat": 24.9983168,
+    "lon": 121.5794478,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "01",
+        "ref": "BR01",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "021"
+  },
+  {
+    "osmId": 689420115,
+    "name": "木柵",
+    "nameEn": "Muzha",
+    "aliases": [],
+    "lat": 24.9982458,
+    "lon": 121.5731834,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "02",
+        "ref": "BR02",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "022"
+  },
+  {
+    "osmId": 689418701,
+    "name": "萬芳社區",
+    "nameEn": "Wanfang Community",
+    "aliases": [],
+    "lat": 24.9986089,
+    "lon": 121.5681226,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "03",
+        "ref": "BR03",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "023"
+  },
+  {
+    "osmId": 689354512,
+    "name": "萬芳醫院",
+    "nameEn": "Wanfang Hospital",
+    "aliases": [],
+    "lat": 24.9994306,
+    "lon": 121.558138,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "04",
+        "ref": "BR04",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "024"
+  },
+  {
+    "osmId": 689295008,
+    "name": "辛亥",
+    "nameEn": "Xinhai",
+    "aliases": [],
+    "lat": 25.0054814,
+    "lon": 121.5570598,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "05",
+        "ref": "BR05",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "025"
+  },
+  {
+    "osmId": 689442955,
+    "name": "麟光",
+    "nameEn": "Linguang",
+    "aliases": [],
+    "lat": 25.0184395,
+    "lon": 121.5589054,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "06",
+        "ref": "BR06",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "026"
+  },
+  {
+    "osmId": 3497302603,
+    "name": "六張犁",
+    "nameEn": "Liuzhangli",
+    "aliases": [],
+    "lat": 25.0238183,
+    "lon": 121.5531211,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "07",
+        "ref": "BR07",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "027"
+  },
+  {
+    "osmId": 3497302604,
+    "name": "科技大樓",
+    "nameEn": "Technology Building",
+    "aliases": [],
+    "lat": 25.0261012,
+    "lon": 121.5434596,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "08",
+        "ref": "BR08",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "028"
+  },
+  {
+    "osmId": 3494960748,
+    "name": "大安",
+    "nameEn": "Daan",
+    "aliases": [],
+    "lat": 25.0333294,
+    "lon": 121.5435546,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "09",
+        "ref": "BR09",
+        "color": "#C48C31",
+        "name": "文湖線"
+      },
+      {
+        "code": "R",
+        "num": "05",
+        "ref": "R05",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "029"
+  },
+  {
+    "osmId": 3497302605,
+    "name": "忠孝復興",
+    "nameEn": "Zhongxiao Fuxing",
+    "aliases": [],
+    "lat": 25.0415409,
+    "lon": 121.5437706,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "10",
+        "ref": "BR10",
+        "color": "#C48C31",
+        "name": "文湖線"
+      },
+      {
+        "code": "BL",
+        "num": "15",
+        "ref": "BL15",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "030"
+  },
+  {
+    "osmId": 3497302606,
+    "name": "南京復興",
+    "nameEn": "Nanjing Fuxing",
+    "aliases": [],
+    "lat": 25.051836,
+    "lon": 121.5439651,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "11",
+        "ref": "BR11",
+        "color": "#C48C31",
+        "name": "文湖線"
+      },
+      {
+        "code": "G",
+        "num": "16",
+        "ref": "G16",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "031"
+  },
+  {
+    "osmId": 3497302607,
+    "name": "中山國中",
+    "nameEn": "Zhongshan Junior High School",
+    "aliases": [],
+    "lat": 25.0606868,
+    "lon": 121.5442019,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "12",
+        "ref": "BR12",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "032"
+  },
+  {
+    "osmId": 3497302608,
+    "name": "松山機場",
+    "nameEn": "Songshan Airport",
+    "aliases": [],
+    "lat": 25.063086,
+    "lon": 121.5516137,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "13",
+        "ref": "BR13",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "033"
+  },
+  {
+    "osmId": 1681745146,
+    "name": "大直",
+    "nameEn": "Dazhi",
+    "aliases": [],
+    "lat": 25.0798652,
+    "lon": 121.5474402,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "14",
+        "ref": "BR14",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "034"
+  },
+  {
+    "osmId": 3497302610,
+    "name": "劍南路",
+    "nameEn": "Jiannan Road",
+    "aliases": [],
+    "lat": 25.0848493,
+    "lon": 121.5556531,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "15",
+        "ref": "BR15",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "035"
+  },
+  {
+    "osmId": 373400459,
+    "name": "西湖",
+    "nameEn": "Xihu",
+    "aliases": [],
+    "lat": 25.0821916,
+    "lon": 121.5673156,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "16",
+        "ref": "BR16",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "036"
+  },
+  {
+    "osmId": 3501186374,
+    "name": "港墘",
+    "nameEn": "Gangqian",
+    "aliases": [],
+    "lat": 25.0800727,
+    "lon": 121.5752034,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "17",
+        "ref": "BR17",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "037"
+  },
+  {
+    "osmId": 3501186375,
+    "name": "文德",
+    "nameEn": "Wende",
+    "aliases": [],
+    "lat": 25.0785562,
+    "lon": 121.5849416,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "18",
+        "ref": "BR18",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "038"
+  },
+  {
+    "osmId": 2971714589,
+    "name": "內湖",
+    "nameEn": "Neihu",
+    "aliases": [],
+    "lat": 25.0834972,
+    "lon": 121.5941892,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "19",
+        "ref": "BR19",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "039"
+  },
+  {
+    "osmId": 3501186376,
+    "name": "大湖公園",
+    "nameEn": "Dahu Park",
+    "aliases": [],
+    "lat": 25.0837613,
+    "lon": 121.602341,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "20",
+        "ref": "BR20",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "040"
+  },
+  {
+    "osmId": 3501186377,
+    "name": "葫洲",
+    "nameEn": "Huzhou",
+    "aliases": [],
+    "lat": 25.0726385,
+    "lon": 121.6073633,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "21",
+        "ref": "BR21",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "041"
+  },
+  {
+    "osmId": 3501186378,
+    "name": "東湖",
+    "nameEn": "Donghu",
+    "aliases": [],
+    "lat": 25.0674198,
+    "lon": 121.6116099,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "22",
+        "ref": "BR22",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "042"
+  },
+  {
+    "osmId": 3501186379,
+    "name": "南港軟體園區",
+    "nameEn": "Nangang Software Park",
+    "aliases": [],
+    "lat": 25.0599458,
+    "lon": 121.6158969,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "23",
+        "ref": "BR23",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "043"
+  },
+  {
+    "osmId": 3501186380,
+    "name": "南港展覽館",
+    "nameEn": "Taipei Nangang Exhibition Center",
+    "aliases": [],
+    "lat": 25.0553158,
+    "lon": 121.617896,
+    "lines": [
+      {
+        "code": "BR",
+        "num": "24",
+        "ref": "BR24",
+        "color": "#C48C31",
+        "name": "文湖線"
+      }
+    ],
+    "id": "044"
+  },
+  {
+    "osmId": 3461854239,
+    "name": "新店",
+    "nameEn": "Xindian",
+    "aliases": [],
+    "lat": 24.9580672,
+    "lon": 121.5376308,
+    "lines": [
+      {
+        "code": "G",
+        "num": "01",
+        "ref": "G01",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "045"
+  },
+  {
+    "osmId": 3502209233,
+    "name": "新店區公所",
+    "nameEn": "Xindian District Office",
+    "aliases": [],
+    "lat": 24.9673862,
+    "lon": 121.5413511,
+    "lines": [
+      {
+        "code": "G",
+        "num": "02",
+        "ref": "G02",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "046"
+  },
+  {
+    "osmId": 3502209234,
+    "name": "七張",
+    "nameEn": "Qizhang",
+    "aliases": [],
+    "lat": 24.9750221,
+    "lon": 121.5429203,
+    "lines": [
+      {
+        "code": "G",
+        "num": "03",
+        "ref": "G03",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "047"
+  },
+  {
+    "osmId": 3800658231,
+    "name": "小碧潭",
+    "nameEn": "Xiaobitan",
+    "aliases": [],
+    "lat": 24.9717696,
+    "lon": 121.5305995,
+    "lines": [
+      {
+        "code": "G",
+        "num": "03A",
+        "ref": "G03A",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "048"
+  },
+  {
+    "osmId": 3502209235,
+    "name": "大坪林",
+    "nameEn": "Dapinglin",
+    "aliases": [],
+    "lat": 24.9829295,
+    "lon": 121.5413291,
+    "lines": [
+      {
+        "code": "G",
+        "num": "04",
+        "ref": "G04",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "049"
+  },
+  {
+    "osmId": 3530915061,
+    "name": "景美",
+    "nameEn": "Jingmei",
+    "aliases": [],
+    "lat": 24.992978,
+    "lon": 121.5408198,
+    "lines": [
+      {
+        "code": "G",
+        "num": "05",
+        "ref": "G05",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "050"
+  },
+  {
+    "osmId": 3530915062,
+    "name": "萬隆",
+    "nameEn": "Wanlong",
+    "aliases": [],
+    "lat": 25.001899,
+    "lon": 121.5389958,
+    "lines": [
+      {
+        "code": "G",
+        "num": "06",
+        "ref": "G06",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "051"
+  },
+  {
+    "osmId": 3530915063,
+    "name": "公館",
+    "nameEn": "Gongguan",
+    "aliases": [],
+    "lat": 25.0149166,
+    "lon": 121.534264,
+    "lines": [
+      {
+        "code": "G",
+        "num": "07",
+        "ref": "G07",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "052"
+  },
+  {
+    "osmId": 253559357,
+    "name": "台電大樓",
+    "nameEn": "Taipower Building",
+    "aliases": [
+      "臺電大樓"
+    ],
+    "lat": 25.0205325,
+    "lon": 121.5283902,
+    "lines": [
+      {
+        "code": "G",
+        "num": "08",
+        "ref": "G08",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "053"
+  },
+  {
+    "osmId": 3812564399,
+    "name": "小南門",
+    "nameEn": "Xiaonanmen",
+    "aliases": [],
+    "lat": 25.035901,
+    "lon": 121.5108064,
+    "lines": [
+      {
+        "code": "G",
+        "num": "11",
+        "ref": "G11",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "054"
+  },
+  {
+    "osmId": 3639530979,
+    "name": "西門",
+    "nameEn": "Ximen",
+    "aliases": [],
+    "lat": 25.0427128,
+    "lon": 121.5086081,
+    "lines": [
+      {
+        "code": "G",
+        "num": "12",
+        "ref": "G12",
+        "color": "#008659",
+        "name": "松山新店線"
+      },
+      {
+        "code": "BL",
+        "num": "11",
+        "ref": "BL11",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "055"
+  },
+  {
+    "osmId": 3263840809,
+    "name": "北門",
+    "nameEn": "Beimen",
+    "aliases": [],
+    "lat": 25.0493991,
+    "lon": 121.5103289,
+    "lines": [
+      {
+        "code": "G",
+        "num": "13",
+        "ref": "G13",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "056"
+  },
+  {
+    "osmId": 3812564397,
+    "name": "台北小巨蛋",
+    "nameEn": "Taipei Arena",
+    "aliases": [
+      "臺北小巨蛋"
+    ],
+    "lat": 25.0516857,
+    "lon": 121.5514989,
+    "lines": [
+      {
+        "code": "G",
+        "num": "17",
+        "ref": "G17",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "057"
+  },
+  {
+    "osmId": 3812564394,
+    "name": "南京三民",
+    "nameEn": "Nanjing Sanmin",
+    "aliases": [],
+    "lat": 25.0514279,
+    "lon": 121.5643061,
+    "lines": [
+      {
+        "code": "G",
+        "num": "18",
+        "ref": "G18",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "058"
+  },
+  {
+    "osmId": 3812564404,
+    "name": "松山",
+    "nameEn": "Songshan",
+    "aliases": [],
+    "lat": 25.0500706,
+    "lon": 121.5774743,
+    "lines": [
+      {
+        "code": "G",
+        "num": "19",
+        "ref": "G19",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "059"
+  },
+  {
+    "osmId": 3812564395,
+    "name": "南勢角",
+    "nameEn": "Nanshijiao",
+    "aliases": [],
+    "lat": 24.9900264,
+    "lon": 121.5088518,
+    "lines": [
+      {
+        "code": "O",
+        "num": "01",
+        "ref": "O01",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "060"
+  },
+  {
+    "osmId": 3812564403,
+    "name": "景安",
+    "nameEn": "Jingan",
+    "aliases": [],
+    "lat": 24.9937859,
+    "lon": 121.5050464,
+    "lines": [
+      {
+        "code": "O",
+        "num": "02",
+        "ref": "O02",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "061"
+  },
+  {
+    "osmId": 3800717745,
+    "name": "永安市場",
+    "nameEn": "Yongan Market",
+    "aliases": [],
+    "lat": 25.0024105,
+    "lon": 121.5109003,
+    "lines": [
+      {
+        "code": "O",
+        "num": "03",
+        "ref": "O03",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "062"
+  },
+  {
+    "osmId": 3812564426,
+    "name": "頂溪",
+    "nameEn": "Dingxi",
+    "aliases": [],
+    "lat": 25.0136014,
+    "lon": 121.515472,
+    "lines": [
+      {
+        "code": "O",
+        "num": "04",
+        "ref": "O04",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "063"
+  },
+  {
+    "osmId": 3812564396,
+    "name": "古亭",
+    "nameEn": "Guting",
+    "aliases": [],
+    "lat": 25.0264102,
+    "lon": 121.5229533,
+    "lines": [
+      {
+        "code": "O",
+        "num": "05",
+        "ref": "O05",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      },
+      {
+        "code": "G",
+        "num": "09",
+        "ref": "G09",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "064"
+  },
+  {
+    "osmId": 1940469232,
+    "name": "東門",
+    "nameEn": "Dongmen",
+    "aliases": [],
+    "lat": 25.0338425,
+    "lon": 121.5292584,
+    "lines": [
+      {
+        "code": "O",
+        "num": "06",
+        "ref": "O06",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      },
+      {
+        "code": "R",
+        "num": "07",
+        "ref": "R07",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "065"
+  },
+  {
+    "osmId": 1493007755,
+    "name": "松江南京",
+    "nameEn": "Songjiang Nanjing",
+    "aliases": [],
+    "lat": 25.0520141,
+    "lon": 121.5330358,
+    "lines": [
+      {
+        "code": "O",
+        "num": "08",
+        "ref": "O08",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      },
+      {
+        "code": "G",
+        "num": "15",
+        "ref": "G15",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "066"
+  },
+  {
+    "osmId": 1493007672,
+    "name": "行天宮",
+    "nameEn": "Xingtian Temple",
+    "aliases": [],
+    "lat": 25.0594133,
+    "lon": 121.5331615,
+    "lines": [
+      {
+        "code": "O",
+        "num": "09",
+        "ref": "O09",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "067"
+  },
+  {
+    "osmId": 3812564391,
+    "name": "中山國小",
+    "nameEn": "Zhongshan Elementary School",
+    "aliases": [],
+    "lat": 25.062674,
+    "lon": 121.5265984,
+    "lines": [
+      {
+        "code": "O",
+        "num": "10",
+        "ref": "O10",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "068"
+  },
+  {
+    "osmId": 3812564398,
+    "name": "大橋頭",
+    "nameEn": "Daqiaotou",
+    "aliases": [],
+    "lat": 25.063198,
+    "lon": 121.5126944,
+    "lines": [
+      {
+        "code": "O",
+        "num": "12",
+        "ref": "O12",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "069"
+  },
+  {
+    "osmId": 3779252951,
+    "name": "台北橋",
+    "nameEn": "Taipei Bridge",
+    "aliases": [
+      "臺北橋"
+    ],
+    "lat": 25.0631779,
+    "lon": 121.5005513,
+    "lines": [
+      {
+        "code": "O",
+        "num": "13",
+        "ref": "O13",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "070"
+  },
+  {
+    "osmId": 3812564422,
+    "name": "菜寮",
+    "nameEn": "Cailiao",
+    "aliases": [],
+    "lat": 25.0602676,
+    "lon": 121.4921055,
+    "lines": [
+      {
+        "code": "O",
+        "num": "14",
+        "ref": "O14",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "071"
+  },
+  {
+    "osmId": 3812564389,
+    "name": "三重",
+    "nameEn": "Sanchong",
+    "aliases": [],
+    "lat": 25.0559777,
+    "lon": 121.4853768,
+    "lines": [
+      {
+        "code": "O",
+        "num": "15",
+        "ref": "O15",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "072"
+  },
+  {
+    "osmId": 3812564393,
+    "name": "先嗇宮",
+    "nameEn": "Xianse Temple",
+    "aliases": [],
+    "lat": 25.0464284,
+    "lon": 121.4716805,
+    "lines": [
+      {
+        "code": "O",
+        "num": "16",
+        "ref": "O16",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "073"
+  },
+  {
+    "osmId": 3812564427,
+    "name": "頭前庄",
+    "nameEn": "Touqianzhuang",
+    "aliases": [],
+    "lat": 25.0395009,
+    "lon": 121.4613873,
+    "lines": [
+      {
+        "code": "O",
+        "num": "17",
+        "ref": "O17",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "074"
+  },
+  {
+    "osmId": 3812564402,
+    "name": "新莊",
+    "nameEn": "Xinzhuang",
+    "aliases": [],
+    "lat": 25.0363332,
+    "lon": 121.4533591,
+    "lines": [
+      {
+        "code": "O",
+        "num": "18",
+        "ref": "O18",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "075"
+  },
+  {
+    "osmId": 3812564424,
+    "name": "輔大",
+    "nameEn": "Fu Jen University",
+    "aliases": [],
+    "lat": 25.032722,
+    "lon": 121.4352746,
+    "lines": [
+      {
+        "code": "O",
+        "num": "19",
+        "ref": "O19",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "076"
+  },
+  {
+    "osmId": 3812564392,
+    "name": "丹鳳",
+    "nameEn": "Danfeng",
+    "aliases": [],
+    "lat": 25.0289264,
+    "lon": 121.4226568,
+    "lines": [
+      {
+        "code": "O",
+        "num": "20",
+        "ref": "O20",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "077"
+  },
+  {
+    "osmId": 3812564425,
+    "name": "迴龍",
+    "nameEn": "Huilong",
+    "aliases": [],
+    "lat": 25.0220786,
+    "lon": 121.4119025,
+    "lines": [
+      {
+        "code": "O",
+        "num": "21",
+        "ref": "O21",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "078"
+  },
+  {
+    "osmId": 3812564390,
+    "name": "三重國小",
+    "nameEn": "Sanchong Elementary School",
+    "aliases": [],
+    "lat": 25.0700034,
+    "lon": 121.4973001,
+    "lines": [
+      {
+        "code": "O",
+        "num": "50",
+        "ref": "O50",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "079"
+  },
+  {
+    "osmId": 3812564387,
+    "name": "三和國中",
+    "nameEn": "Sanhe Junior High School",
+    "aliases": [],
+    "lat": 25.076814,
+    "lon": 121.4863784,
+    "lines": [
+      {
+        "code": "O",
+        "num": "51",
+        "ref": "O51",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "080"
+  },
+  {
+    "osmId": 3812564400,
+    "name": "徐匯中學",
+    "nameEn": "St. Ignatius High School",
+    "aliases": [],
+    "lat": 25.0803359,
+    "lon": 121.4802265,
+    "lines": [
+      {
+        "code": "O",
+        "num": "52",
+        "ref": "O52",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "081"
+  },
+  {
+    "osmId": 3812564388,
+    "name": "三民高中",
+    "nameEn": "Sanmin Senior High School",
+    "aliases": [],
+    "lat": 25.0855048,
+    "lon": 121.4732993,
+    "lines": [
+      {
+        "code": "O",
+        "num": "53",
+        "ref": "O53",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "082"
+  },
+  {
+    "osmId": 3812564423,
+    "name": "蘆洲",
+    "nameEn": "Luzhou",
+    "aliases": [],
+    "lat": 25.091278,
+    "lon": 121.465104,
+    "lines": [
+      {
+        "code": "O",
+        "num": "54",
+        "ref": "O54",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "083"
+  },
+  {
+    "osmId": 3494960745,
+    "name": "象山",
+    "nameEn": "Xiangshan",
+    "aliases": [],
+    "lat": 25.0328676,
+    "lon": 121.5697576,
+    "lines": [
+      {
+        "code": "R",
+        "num": "02",
+        "ref": "R02",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "084"
+  },
+  {
+    "osmId": 9974435156,
+    "name": "台北101/世貿",
+    "nameEn": "Taipei 101/World Trade Center",
+    "aliases": [
+      "臺北101/世貿"
+    ],
+    "lat": 25.0329794,
+    "lon": 121.5624453,
+    "lines": [
+      {
+        "code": "R",
+        "num": "03",
+        "ref": "R03",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "085"
+  },
+  {
+    "osmId": 3494960747,
+    "name": "信義安和",
+    "nameEn": "Xinyi Anhe",
+    "aliases": [],
+    "lat": 25.0331302,
+    "lon": 121.5527328,
+    "lines": [
+      {
+        "code": "R",
+        "num": "04",
+        "ref": "R04",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "086"
+  },
+  {
+    "osmId": 3494960749,
+    "name": "大安森林公園",
+    "nameEn": "Daan Park",
+    "aliases": [],
+    "lat": 25.0335619,
+    "lon": 121.5352793,
+    "lines": [
+      {
+        "code": "R",
+        "num": "06",
+        "ref": "R06",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "087"
+  },
+  {
+    "osmId": 3494960750,
+    "name": "中正紀念堂",
+    "nameEn": "Chiang Kai-Shek Memorial Hall",
+    "aliases": [],
+    "lat": 25.0333942,
+    "lon": 121.5177618,
+    "lines": [
+      {
+        "code": "R",
+        "num": "08",
+        "ref": "R08",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      },
+      {
+        "code": "G",
+        "num": "10",
+        "ref": "G10",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "088"
+  },
+  {
+    "osmId": 2973163775,
+    "name": "台大醫院",
+    "nameEn": "NTU Hospital",
+    "aliases": [
+      "臺大醫院"
+    ],
+    "lat": 25.0416464,
+    "lon": 121.5161808,
+    "lines": [
+      {
+        "code": "R",
+        "num": "09",
+        "ref": "R09",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "089"
+  },
+  {
+    "osmId": 3495094870,
+    "name": "台北車站",
+    "nameEn": "Taipei main station",
+    "aliases": [
+      "臺北車站"
+    ],
+    "lat": 25.0462432,
+    "lon": 121.5174745,
+    "lines": [
+      {
+        "code": "R",
+        "num": "10",
+        "ref": "R10",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      },
+      {
+        "code": "BL",
+        "num": "12",
+        "ref": "BL12",
+        "color": "#0070BD",
+        "name": "板南線"
+      }
+    ],
+    "id": "090"
+  },
+  {
+    "osmId": 3495094871,
+    "name": "中山",
+    "nameEn": "Zhongshan",
+    "aliases": [],
+    "lat": 25.0526256,
+    "lon": 121.5203914,
+    "lines": [
+      {
+        "code": "R",
+        "num": "11",
+        "ref": "R11",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      },
+      {
+        "code": "G",
+        "num": "14",
+        "ref": "G14",
+        "color": "#008659",
+        "name": "松山新店線"
+      }
+    ],
+    "id": "091"
+  },
+  {
+    "osmId": 3495094872,
+    "name": "雙連",
+    "nameEn": "Shuanglian",
+    "aliases": [],
+    "lat": 25.057632,
+    "lon": 121.5206986,
+    "lines": [
+      {
+        "code": "R",
+        "num": "12",
+        "ref": "R12",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "092"
+  },
+  {
+    "osmId": 3495094873,
+    "name": "民權西路",
+    "nameEn": "Minquan W. Rd.",
+    "aliases": [],
+    "lat": 25.0628506,
+    "lon": 121.519403,
+    "lines": [
+      {
+        "code": "R",
+        "num": "13",
+        "ref": "R13",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      },
+      {
+        "code": "O",
+        "num": "11",
+        "ref": "O11",
+        "color": "#F8B61C",
+        "name": "中和新蘆線"
+      }
+    ],
+    "id": "093"
+  },
+  {
+    "osmId": 3495094874,
+    "name": "圓山",
+    "nameEn": "Yuanshan",
+    "aliases": [],
+    "lat": 25.0714175,
+    "lon": 121.5201361,
+    "lines": [
+      {
+        "code": "R",
+        "num": "14",
+        "ref": "R14",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "094"
+  },
+  {
+    "osmId": 3495094875,
+    "name": "劍潭",
+    "nameEn": "Jiantan",
+    "aliases": [],
+    "lat": 25.0842913,
+    "lon": 121.5249806,
+    "lines": [
+      {
+        "code": "R",
+        "num": "15",
+        "ref": "R15",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "095"
+  },
+  {
+    "osmId": 3495094876,
+    "name": "士林",
+    "nameEn": "Shilin",
+    "aliases": [],
+    "lat": 25.0934949,
+    "lon": 121.5262468,
+    "lines": [
+      {
+        "code": "R",
+        "num": "16",
+        "ref": "R16",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "096"
+  },
+  {
+    "osmId": 3495094877,
+    "name": "芝山",
+    "nameEn": "Zhishan",
+    "aliases": [],
+    "lat": 25.1030034,
+    "lon": 121.5225195,
+    "lines": [
+      {
+        "code": "R",
+        "num": "17",
+        "ref": "R17",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "097"
+  },
+  {
+    "osmId": 3495094878,
+    "name": "明德",
+    "nameEn": "Mingde",
+    "aliases": [],
+    "lat": 25.1098593,
+    "lon": 121.5187693,
+    "lines": [
+      {
+        "code": "R",
+        "num": "18",
+        "ref": "R18",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "098"
+  },
+  {
+    "osmId": 3495094879,
+    "name": "石牌",
+    "nameEn": "Shipai",
+    "aliases": [],
+    "lat": 25.1146071,
+    "lon": 121.5155232,
+    "lines": [
+      {
+        "code": "R",
+        "num": "19",
+        "ref": "R19",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "099"
+  },
+  {
+    "osmId": 3495094880,
+    "name": "唭哩岸",
+    "nameEn": "Qilian",
+    "aliases": [],
+    "lat": 25.1209048,
+    "lon": 121.5061304,
+    "lines": [
+      {
+        "code": "R",
+        "num": "20",
+        "ref": "R20",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "100"
+  },
+  {
+    "osmId": 3495094881,
+    "name": "奇岩",
+    "nameEn": "Qiyan",
+    "aliases": [],
+    "lat": 25.1256031,
+    "lon": 121.5011369,
+    "lines": [
+      {
+        "code": "R",
+        "num": "21",
+        "ref": "R21",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "101"
+  },
+  {
+    "osmId": 3495094882,
+    "name": "北投",
+    "nameEn": "Beitou",
+    "aliases": [],
+    "lat": 25.1319307,
+    "lon": 121.4985934,
+    "lines": [
+      {
+        "code": "R",
+        "num": "22",
+        "ref": "R22",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "102"
+  },
+  {
+    "osmId": 269820830,
+    "name": "新北投",
+    "nameEn": "Xinbeitou",
+    "aliases": [],
+    "lat": 25.1369644,
+    "lon": 121.5031693,
+    "lines": [
+      {
+        "code": "R",
+        "num": "22A",
+        "ref": "R22A",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "103"
+  },
+  {
+    "osmId": 3495094883,
+    "name": "復興崗",
+    "nameEn": "Fuxinggang",
+    "aliases": [],
+    "lat": 25.1374895,
+    "lon": 121.4854979,
+    "lines": [
+      {
+        "code": "R",
+        "num": "23",
+        "ref": "R23",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "104"
+  },
+  {
+    "osmId": 3495094884,
+    "name": "忠義",
+    "nameEn": "Zhongyi",
+    "aliases": [],
+    "lat": 25.1309506,
+    "lon": 121.473374,
+    "lines": [
+      {
+        "code": "R",
+        "num": "24",
+        "ref": "R24",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "105"
+  },
+  {
+    "osmId": 3495094885,
+    "name": "關渡",
+    "nameEn": "Guandu",
+    "aliases": [],
+    "lat": 25.1257006,
+    "lon": 121.4671419,
+    "lines": [
+      {
+        "code": "R",
+        "num": "25",
+        "ref": "R25",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "106"
+  },
+  {
+    "osmId": 3495094886,
+    "name": "竹圍",
+    "nameEn": "Zhuwei",
+    "aliases": [],
+    "lat": 25.1369727,
+    "lon": 121.4595099,
+    "lines": [
+      {
+        "code": "R",
+        "num": "26",
+        "ref": "R26",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "107"
+  },
+  {
+    "osmId": 3495094887,
+    "name": "紅樹林",
+    "nameEn": "Hongshulin",
+    "aliases": [],
+    "lat": 25.1544087,
+    "lon": 121.4588321,
+    "lines": [
+      {
+        "code": "R",
+        "num": "27",
+        "ref": "R27",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "108"
+  },
+  {
+    "osmId": 3495094888,
+    "name": "淡水",
+    "nameEn": "Tamsui",
+    "aliases": [],
+    "lat": 25.1677828,
+    "lon": 121.4455744,
+    "lines": [
+      {
+        "code": "R",
+        "num": "28",
+        "ref": "R28",
+        "color": "#E3002C",
+        "name": "淡水信義線"
+      }
+    ],
+    "id": "109"
+  }
+]

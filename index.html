@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台北捷運 × Pikmin Bloom 攻略地圖</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">🌸</span>
+      <div>
+        <h1>台北捷運 × Pikmin Bloom</h1>
+        <p>選一站，看周邊 800m 能拿哪些 Decor 皮克敏</p>
+      </div>
+    </div>
+    <button id="settingsBtn" class="icon-btn" title="設定 API Key">⚙️ 設定</button>
+  </header>
+
+  <main class="layout">
+    <section class="map-pane">
+      <div id="map"></div>
+    </section>
+
+    <aside class="info-pane">
+      <div class="station-picker">
+        <label for="stationSelect">選擇捷運站</label>
+        <input list="stationList" id="stationSelect" placeholder="輸入或選擇站名（例：中山）" autocomplete="off" />
+        <datalist id="stationList"></datalist>
+      </div>
+
+      <div id="stationInfo" class="station-info hidden">
+        <div class="station-header">
+          <h2 id="stationName">—</h2>
+          <div id="stationLines" class="lines"></div>
+        </div>
+        <div class="station-stats">
+          <div><span id="poiCount">0</span> 個有效 POI（800m 內）</div>
+          <div><span id="decorCount">0</span> 種可拿 Decor</div>
+        </div>
+      </div>
+
+      <div id="decorList" class="decor-list"></div>
+
+      <div id="aiPanel" class="ai-panel hidden">
+        <div class="ai-header">
+          <h3>✨ AI 散步攻略</h3>
+          <button id="generateBtn" class="primary-btn">生成攻略</button>
+        </div>
+        <div id="aiOutput" class="ai-output">
+          <p class="hint">選擇站點後，點「生成攻略」讓 AI 推薦這站的散步路線、推薦時段、Decor 收集重點。</p>
+        </div>
+      </div>
+
+      <div id="dataStatus" class="data-status"></div>
+    </aside>
+  </main>
+
+  <!-- 設定 Modal -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>API Key 設定</h2>
+        <button class="close-btn" id="closeSettings">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <label>Provider</label>
+          <select id="providerSelect">
+            <option value="gemini">Google Gemini</option>
+            <option value="openai">OpenAI</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Model</label>
+          <select id="modelSelect"></select>
+        </div>
+        <div class="form-row">
+          <label>API Key</label>
+          <input type="password" id="apiKeyInput" placeholder="貼上你的 API Key" />
+          <a id="getKeyLink" href="#" target="_blank" rel="noopener" class="hint-link">取得 API Key →</a>
+        </div>
+        <div class="form-row checkbox-row">
+          <label><input type="checkbox" id="rememberKey" checked /> 記住在這台電腦（localStorage）</label>
+        </div>
+        <div class="modal-actions">
+          <button id="clearKey" class="ghost-btn">清除已儲存</button>
+          <button id="saveSettings" class="primary-btn">儲存</button>
+        </div>
+        <p class="warning-text">⚠ 純前端應用，API Key 只存在你瀏覽器裡，不會上傳。但若在共用電腦，建議不要勾「記住」。</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

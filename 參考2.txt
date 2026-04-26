@@ -1,0 +1,1061 @@
+## 📋 實作步驟總覽
+
+| # | 步驟 | 在哪裡操作 |
+|---|------|------------|
+| 步驟一 | 準備 HTML 結構與依賴庫 | 終端機 / Python |
+| 步驟二 | 實作拖放上傳區域 | 終端機 / Python |
+| 步驟三 | CSV 解析與圖表渲染 | 終端機 / Python |
+| 步驟四 | 呼叫 Gemini API 進行 AI 洞察分析 | 終端機 / Python |
+
+
+---
+
+## ✏️ AI Studio 提示詞
+
+> 以下提示詞為**自然語言**，可直接複製貼入 **AI Studio → Build 模式**的輸入框。
+
+
+```
+[!TIP] 想讓分析更精準？試試把「月份」欄位也傳給 Gemini，讓 AI 能計算月增率。另外，如果你有歷年資料，可以用 `gemini-3-pro-preview` 做跨年度的長期趨勢分析，效果更佳。
+```
+
+
+---
+
+## 👣 完整操作步驟
+
+
+### 步驟一：準備 HTML 結構與依賴庫
+
+建立 `dashboard.html` 並引入所需庫：
+
+> 🌐 **執行環境**：網頁檔案（存為 .html 並用瀏覽器開啟）
+
+
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台北捷運運量分析儀表板</title>
+  
+  <!-- Chart.js：圖表渲染 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  
+  <!-- Papa Parse：CSV 解析 -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Microsoft JhengHei', system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #1e3a5f, #0f172a);
+      padding: 24px 32px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .header h1 { font-size: 22px; font-weight: 800; }
+    .header p { font-size: 14px; color: #94a3b8; margin-top: 4px; }
+    
+    .upload-zone {
+      margin: 32px;
+      border: 2px dashed #334155;
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: #1a2332;
+    }
+    
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: #1a73e8;
+      background: rgba(26, 115, 232, 0.08);
+    }
+    
+    .upload-zone h2 { font-size: 20px; margin-bottom: 8px; }
+    .upload-zone p { color: #64748b; font-size: 14px; }
+    
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 32px;
+    }
+    
+    .chart-card {
+      background: #1a2332;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    
+    .chart-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #94a3b8;
+    }
+    
+    .ai-insight {
+      margin: 0 32px 32px;
+      background: linear-gradient(135deg, rgba(26,115,232,0.1), rgba(0,188,212,0.05));
+      border: 1px solid rgba(26, 115, 232, 0.3);
+      border-radius: 16px;
+      padding: 28px 32px;
+    }
+    
+    .ai-insight h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a73e8;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .ai-insight-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #cbd5e1;
+      white-space: pre-line;
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 20px; height: 20px;
+      border: 2px solid #334155;
+      border-top-color: #1a73e8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .stats-bar {
+      display: flex;
+      gap: 20px;
+      margin: 0 32px 24px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-card {
+      background: #1a2332;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 16px 24px;
+      flex: 1;
+      min-width: 160px;
+    }
+    
+    .stat-label { font-size: 12px; color: #64748b; margin-bottom: 4px; }
+    .stat-value { font-size: 24px; font-weight: 800; color: #1a73e8; }
+    .stat-unit { font-size: 13px; color: #94a3b8; }
+  </style>
+</head>
+```
+
+
+### 步驟二：實作拖放上傳區域
+
+
+> 🌐 **執行環境**：網頁檔案（存為 .html 並用瀏覽器開啟）
+
+
+```html
+<body>
+  <div class="header">
+    <div>
+      <h1>台北捷運運量分析儀表板</h1>
+      <p>CSV 上傳 → 互動圖表 → Gemini AI 自動洞察</p>
+    </div>
+  </div>
+  
+  <div id="uploadSection">
+    <div class="upload-zone" id="dropZone" 
+         onclick="document.getElementById('fileInput').click()"
+         ondragover="handleDragOver(event)"
+         ondragleave="handleDragLeave(event)"
+         ondrop="handleDrop(event)">
+      <div style="font-size:48px;margin-bottom:16px;">📊</div>
+      <h2>拖放或點擊上傳 CSV</h2>
+      <p>支援台北捷運公開資料格式<br>（欄位：日期、站名、進站人次、出站人次）</p>
+    </div>
+    <input type="file" id="fileInput" accept=".csv" style="display:none" 
+           onchange="handleFileSelect(event)">
+  </div>
+  
+  <div id="dashboard" style="display:none">
+    <div class="stats-bar" id="statsBar"></div>
+    
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>月度趨勢折線圖（前五大站）</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>各站總運量排名</h3>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+    
+    <div class="ai-insight" id="aiInsight">
+      <h3>
+        <span>✨</span> Gemini AI 洞察分析
+        <span class="loading-spinner" id="spinner"></span>
+      </h3>
+      <div class="ai-insight-text" id="insightText">正在分析數據中，請稍候...</div>
+    </div>
+  </div>
+</body>
+```
+
+> ✅ **完成確認：** 你已完成本段操作，可繼續下一個步驟
+---
+
+### 步驟三：CSV 解析與圖表渲染
+
+
+> 🌐 **執行環境**：Node.js 或瀏覽器 Console 執行
+
+
+```javascript
+<script>
+let chartLine = null;
+let chartBar = null;
+
+// 拖放處理
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.add('drag-over');
+}
+function handleDragLeave(e) {
+  document.getElementById('dropZone').classList.remove('drag-over');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.name.endsWith('.csv')) processFile(file);
+}
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) processFile(file);
+}
+
+function processFile(file) {
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: (results) => {
+      const data = results.data;
+      showDashboard(data);
+    },
+    error: (err) => alert('CSV 解析錯誤：' + err.message)
+  });
+}
+
+function showDashboard(data) {
+  document.getElementById('uploadSection').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  
+  // 計算統計摘要
+  const summary = buildDataSummary(data);
+  
+  // 渲染統計數字
+  renderStats(summary);
+  
+  // 渲染圖表
+  renderLineChart(data, summary);
+  renderBarChart(summary);
+  
+  // 呼叫 Gemini AI 分析
+  analyzeWithGemini(summary);
+}
+
+function buildDataSummary(data) {
+  const stationMap = {};
+  const monthMap = {};
+  let totalEntries = 0;
+  
+  data.forEach(row => {
+    const station = row['站名'] || row['station'] || '';
+    const date = row['日期'] || row['date'] || '';
+    const entries = parseInt(row['進站人次'] || row['entries'] || 0);
+    const month = date.substring(0, 7); // YYYY-MM
+    
+    if (!station) return;
+    
+    // 站別累計
+    stationMap[station] = (stationMap[station] || 0) + entries;
+    
+    // 月別累計
+    if (!monthMap[month]) monthMap[month] = {};
+    monthMap[month][station] = (monthMap[month][station] || 0) + entries;
+    
+    totalEntries += entries;
+  });
+  
+  // 排序取前 10
+  const topStations = Object.entries(stationMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+  
+  const months = Object.keys(monthMap).sort();
+  
+  return { stationMap, monthMap, topStations, months, totalEntries };
+}
+
+function renderStats(summary) {
+  const statsBar = document.getElementById('statsBar');
+  const top = summary.topStations[0];
+  
+  statsBar.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">總進站人次</div>
+      <div class="stat-value">${(summary.totalEntries / 1000000).toFixed(1)}</div>
+      <div class="stat-unit">百萬人次</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">統計站數</div>
+      <div class="stat-value">${Object.keys(summary.stationMap).length}</div>
+      <div class="stat-unit">個車站</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最熱門車站</div>
+      <div class="stat-value" style="font-size:20px">${top ? top[0] : '-'}</div>
+      <div class="stat-unit">${top ? (top[1]/10000).toFixed(0) + ' 萬人次' : ''}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">統計月份數</div>
+      <div class="stat-value">${summary.months.length}</div>
+      <div class="stat-unit">個月</div>
+    </div>
+  `;
+}
+
+function renderLineChart(data, summary) {
+  const ctx = document.getElementById('lineChart').getContext('2d');
+  if (chartLine) chartLine.destroy();
+  
+  const top5Stations = summary.topStations.slice(0, 5).map(s => s[0]);
+  const colors = ['#1a73e8', '#00bcd4', '#34a853', '#fbbc04', '#ea4335'];
+  
+  const datasets = top5Stations.map((station, i) => ({
+    label: station,
+    data: summary.months.map(m => (summary.monthMap[m] || {})[station] || 0),
+    borderColor: colors[i],
+    backgroundColor: colors[i] + '20',
+    tension: 0.4,
+    fill: false,
+    pointRadius: 4
+  }));
+  
+  chartLine = new Chart(ctx, {
+    type: 'line',
+    data: { labels: summary.months, datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+      },
+      scales: {
+        x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+
+function renderBarChart(summary) {
+  const ctx = document.getElementById('barChart').getContext('2d');
+  if (chartBar) chartBar.destroy();
+  
+  const labels = summary.topStations.map(s => s[0]);
+  const values = summary.topStations.map(s => s[1]);
+  
+  chartBar = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '總進站人次',
+        data: values,
+        backgroundColor: labels.map((_, i) => 
+          `hsl(${210 + i * 15}, 70%, ${55 - i * 3}%)`
+        )
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#cbd5e1', font: { size: 12 } }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+</script>
+```
+
+
+### 步驟四：呼叫 Gemini API 進行 AI 洞察分析
+
+
+> 🌐 **執行環境**：Node.js 或瀏覽器 Console 執行
+
+
+```javascript
+async function analyzeWithGemini(summary) {
+  const API_KEY = 'YOUR_GEMINI_API_KEY'; // 替換成你的金鑰
+  
+  // 建立傳給 AI 的摘要文字
+  const summaryText = `
+台北捷運運量資料摘要：
+- 統計月份：${summary.months.join('、')}
+- 總進站人次：${(summary.totalEntries / 10000).toFixed(0)} 萬人次
+- 統計車站數：${Object.keys(summary.stationMap).length} 站
+
+前十名車站進站人次：
+${summary.topStations.map(([s, v], i) => 
+  `${i+1}. ${s}：${(v/10000).toFixed(0)} 萬人次`
+).join('\n')}
+
+月度趨勢（前五大站）：
+${summary.months.map(m => {
+  const top5 = summary.topStations.slice(0, 5);
+  return `${m}：${top5.map(([s]) => 
+    `${s} ${((summary.monthMap[m]||{})[s]||0)/10000|0}萬`
+  ).join('、')}`;
+}).join('\n')}
+  `.trim();
+  
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `你是台北捷運的資深數據分析師。以下是捷運運量的統計摘要，請提供專業的分析洞察：
+
+${summaryText}
+
+請用繁體中文回答，分析以下面向：
+1. 整體運量趨勢（成長、下降或穩定）
+2. 前三名熱門站的特性分析（為什麼這些站運量高？）
+3. 有沒有異常的月份或站別？
+4. 給交通局的具體建議（2-3 條）
+
+回答格式要清晰有條理，每段有小標題。`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 1024
+          }
+        })
+      }
+    );
+    
+    const result = await response.json();
+    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '分析失敗，請檢查 API 金鑰。';
+    
+    document.getElementById('insightText').textContent = text;
+    document.getElementById('spinner').style.display = 'none';
+    
+  } catch (error) {
+    document.getElementById('insightText').textContent = 
+      `無法取得 AI 分析：${error.message}\n\n請確認 API 金鑰是否正確。`;
+    document.getElementById('spinner').style.display = 'none';
+  }
+}
+```
+
+> ✅ **完成確認：** 你已完成本段操作，可繼續下一個步驟
+---
+
+---
+
+## 💻 本章程式碼
+
+> 每段程式碼都標示了**執行環境**，請確認在正確的地方執行！
+
+
+### 🐍 Python 環境執行（本機終端機 或 Google Colab）
+
+
+```python
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_API_KEY")
+client = genai.GenerativeModel("gemini-3-flash-preview")
+
+csv_text = """
+站名,1月,2月,3月
+台北車站,1250000,1180000,1320000
+忠孝復興,890000,845000,920000
+西門,780000,720000,810000
+"""
+
+response = client.generate_content(
+    f"以下是台北捷運各站的月運量資料（單位：人次）：\n\n{csv_text}\n\n請分析這份資料的趨勢、異常點，並給出具體的洞察建議。"
+)
+print(response.text)
+```
+
+
+### 🐍 Python 環境執行（本機終端機 或 Google Colab）
+
+
+```python
+import google.generativeai as genai
+import pathlib
+
+genai.configure(api_key="YOUR_API_KEY")
+
+# 上傳 CSV 檔案
+sample_file = genai.upload_file(
+    path=pathlib.Path("mrt_data_2025.csv"),
+    display_name="台北捷運2025年運量資料"
+)
+print(f"上傳完成：{sample_file.uri}")
+
+# 用上傳的檔案進行分析
+client = genai.GenerativeModel("gemini-3-flash-preview")
+response = client.generate_content([
+    sample_file,
+    "請分析這份台北捷運運量 CSV 資料，指出前三名成長最快的站、任何異常下滑的站，以及整體趨勢。用繁體中文回答。"
+])
+print(response.text)
+```
+
+
+### 🌐 Node.js 或瀏覽器 Console 執行
+
+
+```javascript
+// 前端計算統計摘要
+function buildSummary(data) {
+  const totalsByStation = {};
+  data.forEach(row => {
+    const station = row['站名'];
+    const count = parseInt(row['進站人次'] || 0);
+    totalsByStation[station] = (totalsByStation[station] || 0) + count;
+  });
+  
+  const sorted = Object.entries(totalsByStation)
+    .sort((a, b) => b[1] - a[1]);
+  
+  return {
+    top5: sorted.slice(0, 5),
+    bottom5: sorted.slice(-5),
+    total: sorted.reduce((s, [, v]) => s + v, 0)
+  };
+}
+```
+
+
+### 🌐 Node.js 或瀏覽器 Console 執行
+
+
+```javascript
+<script>
+let chartLine = null;
+let chartBar = null;
+
+// 拖放處理
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.add('drag-over');
+}
+function handleDragLeave(e) {
+  document.getElementById('dropZone').classList.remove('drag-over');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.name.endsWith('.csv')) processFile(file);
+}
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) processFile(file);
+}
+
+function processFile(file) {
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: (results) => {
+      const data = results.data;
+      showDashboard(data);
+    },
+    error: (err) => alert('CSV 解析錯誤：' + err.message)
+  });
+}
+
+function showDashboard(data) {
+  document.getElementById('uploadSection').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  
+  // 計算統計摘要
+  const summary = buildDataSummary(data);
+  
+  // 渲染統計數字
+  renderStats(summary);
+  
+  // 渲染圖表
+  renderLineChart(data, summary);
+  renderBarChart(summary);
+  
+  // 呼叫 Gemini AI 分析
+  analyzeWithGemini(summary);
+}
+
+function buildDataSummary(data) {
+  const stationMap = {};
+  const monthMap = {};
+  let totalEntries = 0;
+  
+  data.forEach(row => {
+    const station = row['站名'] || row['station'] || '';
+    const date = row['日期'] || row['date'] || '';
+    const entries = parseInt(row['進站人次'] || row['entries'] || 0);
+    const month = date.substring(0, 7); // YYYY-MM
+    
+    if (!station) return;
+    
+    // 站別累計
+    stationMap[station] = (stationMap[station] || 0) + entries;
+    
+    // 月別累計
+    if (!monthMap[month]) monthMap[month] = {};
+    monthMap[month][station] = (monthMap[month][station] || 0) + entries;
+    
+    totalEntries += entries;
+  });
+  
+  // 排序取前 10
+  const topStations = Object.entries(stationMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+  
+  const months = Object.keys(monthMap).sort();
+  
+  return { stationMap, monthMap, topStations, months, totalEntries };
+}
+
+function renderStats(summary) {
+  const statsBar = document.getElementById('statsBar');
+  const top = summary.topStations[0];
+  
+  statsBar.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">總進站人次</div>
+      <div class="stat-value">${(summary.totalEntries / 1000000).toFixed(1)}</div>
+      <div class="stat-unit">百萬人次</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">統計站數</div>
+      <div class="stat-value">${Object.keys(summary.stationMap).length}</div>
+      <div class="stat-unit">個車站</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最熱門車站</div>
+      <div class="stat-value" style="font-size:20px">${top ? top[0] : '-'}</div>
+      <div class="stat-unit">${top ? (top[1]/10000).toFixed(0) + ' 萬人次' : ''}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">統計月份數</div>
+      <div class="stat-value">${summary.months.length}</div>
+      <div class="stat-unit">個月</div>
+    </div>
+  `;
+}
+
+function renderLineChart(data, summary) {
+  const ctx = document.getElementById('lineChart').getContext('2d');
+  if (chartLine) chartLine.destroy();
+  
+  const top5Stations = summary.topStations.slice(0, 5).map(s => s[0]);
+  const colors = ['#1a73e8', '#00bcd4', '#34a853', '#fbbc04', '#ea4335'];
+  
+  const datasets = top5Stations.map((station, i) => ({
+    label: station,
+    data: summary.months.map(m => (summary.monthMap[m] || {})[station] || 0),
+    borderColor: colors[i],
+    backgroundColor: colors[i] + '20',
+    tension: 0.4,
+    fill: false,
+    pointRadius: 4
+  }));
+  
+  chartLine = new Chart(ctx, {
+    type: 'line',
+    data: { labels: summary.months, datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+      },
+      scales: {
+        x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+
+function renderBarChart(summary) {
+  const ctx = document.getElementById('barChart').getContext('2d');
+  if (chartBar) chartBar.destroy();
+  
+  const labels = summary.topStations.map(s => s[0]);
+  const values = summary.topStations.map(s => s[1]);
+  
+  chartBar = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '總進站人次',
+        data: values,
+        backgroundColor: labels.map((_, i) => 
+          `hsl(${210 + i * 15}, 70%, ${55 - i * 3}%)`
+        )
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#cbd5e1', font: { size: 12 } }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+</script>
+```
+
+
+### 🌐 Node.js 或瀏覽器 Console 執行
+
+
+```javascript
+async function analyzeWithGemini(summary) {
+  const API_KEY = 'YOUR_GEMINI_API_KEY'; // 替換成你的金鑰
+  
+  // 建立傳給 AI 的摘要文字
+  const summaryText = `
+台北捷運運量資料摘要：
+- 統計月份：${summary.months.join('、')}
+- 總進站人次：${(summary.totalEntries / 10000).toFixed(0)} 萬人次
+- 統計車站數：${Object.keys(summary.stationMap).length} 站
+
+前十名車站進站人次：
+${summary.topStations.map(([s, v], i) => 
+  `${i+1}. ${s}：${(v/10000).toFixed(0)} 萬人次`
+).join('\n')}
+
+月度趨勢（前五大站）：
+${summary.months.map(m => {
+  const top5 = summary.topStations.slice(0, 5);
+  return `${m}：${top5.map(([s]) => 
+    `${s} ${((summary.monthMap[m]||{})[s]||0)/10000|0}萬`
+  ).join('、')}`;
+}).join('\n')}
+  `.trim();
+  
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `你是台北捷運的資深數據分析師。以下是捷運運量的統計摘要，請提供專業的分析洞察：
+
+${summaryText}
+
+請用繁體中文回答，分析以下面向：
+1. 整體運量趨勢（成長、下降或穩定）
+2. 前三名熱門站的特性分析（為什麼這些站運量高？）
+3. 有沒有異常的月份或站別？
+4. 給交通局的具體建議（2-3 條）
+
+回答格式要清晰有條理，每段有小標題。`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 1024
+          }
+        })
+      }
+    );
+    
+    const result = await response.json();
+    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '分析失敗，請檢查 API 金鑰。';
+    
+    document.getElementById('insightText').textContent = text;
+    document.getElementById('spinner').style.display = 'none';
+    
+  } catch (error) {
+    document.getElementById('insightText').textContent = 
+      `無法取得 AI 分析：${error.message}\n\n請確認 API 金鑰是否正確。`;
+    document.getElementById('spinner').style.display = 'none';
+  }
+}
+```
+
+
+### 🐍 Python 環境執行（本機終端機 或 Google Colab）
+
+
+```python
+"""
+台北捷運運量分析儀表板 - Python 版本
+支援 CSV 讀取、統計摘要、Gemini AI 洞察分析
+需要安裝：pip install google-generativeai pandas matplotlib
+"""
+
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+import google.generativeai as genai
+from pathlib import Path
+
+# 設定中文字體（Windows）
+matplotlib.rc('font', family='Microsoft JHaeiUI')
+matplotlib.rc('axes', unicode_minus=False)
+
+# === 設定 API ===
+API_KEY = os.environ.get("GEMINI_API_KEY", "YOUR_API_KEY_HERE")
+genai.configure(api_key=API_KEY)
+
+
+def load_mrt_csv(filepath: str) -> pd.DataFrame:
+    """
+    讀取台北捷運 CSV 資料
+    預期欄位：日期, 站名, 進站人次, 出站人次
+    """
+    df = pd.read_csv(filepath, encoding='utf-8-sig')
+    
+    # 欄位名稱標準化
+    col_map = {
+        '日期': 'date',
+        '站名': 'station',
+        '進站人次': 'entries',
+        '出站人次': 'exits'
+    }
+    df = df.rename(columns={k: v for k, v in col_map.items() if k in df.columns})
+    
+    # 轉換日期
+    df['date'] = pd.to_datetime(df['date'], errors='coerce')
+    df['month'] = df['date'].dt.to_period('M')
+    df['entries'] = pd.to_numeric(df['entries'], errors='coerce').fillna(0)
+    
+    return df
+
+
+def compute_summary(df: pd.DataFrame) -> dict:
+    """計算統計摘要"""
+    station_total = df.groupby('station')['entries'].sum().sort_values(ascending=False)
+    monthly_total = df.groupby('month')['entries'].sum()
+    top_stations = station_total.head(10)
+    
+    summary = {
+        "total_entries": int(df['entries'].sum()),
+        "station_count": df['station'].nunique(),
+        "date_range": f"{df['date'].min().date()} ~ {df['date'].max().date()}",
+        "top_stations": top_stations.to_dict(),
+        "monthly_trend": {str(k): int(v) for k, v in monthly_total.items()},
+        "top5_monthly": {}
+    }
+    
+    top5 = station_total.head(5).index.tolist()
+    for station in top5:
+        station_df = df[df['station'] == station]
+        monthly = station_df.groupby('month')['entries'].sum()
+        summary["top5_monthly"][station] = {str(k): int(v) for k, v in monthly.items()}
+    
+    return summary
+
+
+def create_visualizations(df: pd.DataFrame, summary: dict, output_dir: str = "."):
+    """產生三種視覺化圖表"""
+    output_path = Path(output_dir)
+    output_path.mkdir(exist_ok=True)
+    
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+    fig.patch.set_facecolor('#0f172a')
+    
+    # 圖表一：月度趨勢折線圖
+    ax1 = axes[0]
+    ax1.set_facecolor('#1a2332')
+    colors = ['#1a73e8', '#00bcd4', '#34a853', '#fbbc04', '#ea4335']
+    
+    for i, (station, monthly_data) in enumerate(summary["top5_monthly"].items()):
+        months = list(monthly_data.keys())
+        values = list(monthly_data.values())
+        ax1.plot(months, values, marker='o', label=station, color=colors[i], linewidth=2)
+    
+    ax1.set_title('前五大站月度趨勢', color='#e2e8f0', fontsize=14, fontweight='bold')
+    ax1.set_xlabel('月份', color='#94a3b8')
+    ax1.set_ylabel('進站人次', color='#94a3b8')
+    ax1.tick_params(colors='#64748b', rotation=45)
+    ax1.legend(loc='upper left', facecolor='#1a2332', labelcolor='#cbd5e1', fontsize=10)
+    ax1.grid(color='#1e293b', alpha=0.5)
+    ax1.spines['bottom'].set_color('#1e293b')
+    ax1.spines['left'].set_color('#1e293b')
+    ax1.spines['top'].set_visible(False)
+    ax1.spines['right'].set_visible(False)
+    
+    # 圖表二：各站總運量水平長條圖
+    ax2 = axes[1]
+    ax2.set_facecolor('#1a2332')
+    
+    stations = list(summary["top_stations"].keys())[:10][::-1]
+    values = [summary["top_stations"][s] for s in stations]
+    bar_colors = [f'hsl({210 + i*12}, 70%, {55 - i*2}%)' for i in range(len(stations))]
+    
+    bars = ax2.barh(stations, values, color=colors * 2)
+    ax2.set_title('各站總進站人次排名', color='#e2e8f0', fontsize=14, fontweight='bold')
+    ax2.set_xlabel('總人次', color='#94a3b8')
+    ax2.tick_params(colors='#cbd5e1')
+    ax2.grid(axis='x', color='#1e293b', alpha=0.5)
+    ax2.spines['top'].set_visible(False)
+    ax2.spines['right'].set_visible(False)
+    ax2.spines['bottom'].set_color('#1e293b')
+    ax2.spines['left'].set_color('#1e293b')
+    
+    plt.tight_layout()
+    chart_path = output_path / "mrt_dashboard.png"
+    plt.savefig(chart_path, dpi=150, bbox_inches='tight', facecolor='#0f172a')
+    plt.close()
+    print(f"圖表已儲存至：{chart_path}")
+    
+    return str(chart_path)
+
+
+def analyze_with_gemini(summary: dict) -> str:
+    """呼叫 Gemini 3 Flash 進行 AI 洞察分析"""
+    
+    model = genai.GenerativeModel("gemini-3-flash-preview")
+    
+    # 建立結構化摘要文字
+    top_stations_text = "\n".join([
+        f"  {i+1}. {station}：{count/10000:.1f} 萬人次"
+        for i, (station, count) in enumerate(list(summary["top_stations"].items())[:10])
+    ])
+    
+    monthly_text = "\n".join([
+        f"  {month}：{count/10000:.1f} 萬人次"
+        for month, count in summary["monthly_trend"].items()
+    ])
+    
+    prompt = f"""你是台北捷運的資深數據分析師，擅長從運量數據中提取有意義的洞察。
+
+以下是台北捷運的運量統計摘要：
+
+【基本資訊】
+- 統計期間：{summary['date_range']}
+- 總進站人次：{summary['total_entries']/1000000:.1f} 百萬人次
+- 統計車站數：{summary['station_count']} 站
+
+【前十名熱門車站（進站總人次）】
+{top_stations_text}
+
+【月度整體趨勢】
+{monthly_text}
+
+請以專業分析師的角度，提供以下洞察分析（用繁體中文，條理清晰）：
+
+## 整體趨勢分析
+（說明整體運量是成長、下降還是穩定，以及可能的原因）
+
+## 熱點站別解析
+（分析前三名車站的高運量原因，結合地理位置和商業特性）
+
+## 異常與警訊
+（有無運量異常的月份或站別，可能是什麼原因）
+
+## 政策建議
+（給台北市交通局的具體改善建議，2-3 條）
+"""
+    
+    response = model.generate_content(prompt)
+    return response.text
+
+
+def run_dashboard(csv_path: str, output_dir: str = "output"):
+    """主程式：完整執行分析流程"""
+    print("=" * 60)
+    print("  台北捷運運量分析儀表板  ")
+    print("=" * 60)
+    
+    # 步驟一：讀取資料
+    print("\n[1/4] 讀取 CSV 資料...")
+    df = load_mrt_csv(csv_path)
+    print(f"  載入 {len(df):,} 筆資料，{df['station'].nunique()} 個站")
+    
+    # 步驟二：計算摘要
+    print("\n[2/4] 計算統計摘要...")
+    summary = compute_summary(df)
+    print(f"  總進站：{summary['total_entries']/1000000:.1f} 百萬人次")
+    print(f"  期間：{summary['date_range']}")
+    
+    # 步驟三：生成圖表
+    print("\n[3/4] 生成視覺化圖表...")
+    chart_path = create_visualizations(df, summary, output_dir)
+    
+    # 步驟四：AI 洞察分析
+    print("\n[4/4] Gemini AI 洞察分析中...")
+    insight = analyze_with_gemini(summary)
+    
+    # 輸出報告
+    report_path = Path(output_dir) / "mrt_insight_report.txt"
+    with open(report_path, 'w', encoding='utf-8') as f:
+        f.write("台北捷運運量 AI 洞察報告\n")
+        f.write("=" * 60 + "\n\n")
+        f.write(insight)
+    
+    print(f"\n  AI 洞察報告已儲存至：{report_path}")
+    print("\n--- AI 洞察摘要 ---")
+    print(insight[:500] + "..." if len(insight) > 500 else insight)
+    
+    print("\n分析完成！")
+    return summary, insight
+
+
+if __name__ == "__main__":
+    # 執行示範
+    run_dashboard(
+        csv_path="mrt_data.csv",   # 你的 CSV 路徑
+        output_dir="output"
+    )
+```
+
+
+---
