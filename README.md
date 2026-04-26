@@ -2,12 +2,30 @@
 
 選一站 → 查 800m 內可拿哪些 Decor 皮克敏 → AI 給散步攻略。
 
-## 線上部署（Netlify 手動上傳）
+## 🌸 線上 Demo
+
+**👉 [unbias38.github.io/pikmin-mrt-taipei](https://unbias38.github.io/pikmin-mrt-taipei/)**
+
+開網頁 → 選任意捷運站（地圖點選或下拉搜尋）→ 看周邊 Decor 類別清單 → 點 ⚙️ 設定填 API Key → 點「生成攻略」讓 AI 給散步建議。
+
+主要功能：
+- 🗺️ 109 站互動地圖（彩色 OSM 底圖）
+- 🌳 25 種 Decor 類別偵測（從 OSM POI 推斷）
+- 📊 **稀有度排行**：點頂部「📊 排行」看哪些站獨家有特定 Decor
+- 📍 **點 Decor 卡片** → 對應店家 pin 全部撒在地圖上（可疊加多種類別）
+- 💬 點 pin 看店名、地址、Google Maps 連結
+- ✨ Google Gemini / OpenAI 雙 LLM 攻略生成（API Key 自備，存 localStorage）
+
+## 部署到 Netlify（自架版）
+
+想自己架一份不依賴 GitHub Pages：
 
 1. 把整個專案資料夾打包成 zip（或直接上傳資料夾）。**不需要** `node_modules`、`scripts/`、`data/_*.json`、`*.txt`、`*.log`，這些只是開發/原始素材。
 2. 進 [Netlify](https://app.netlify.com/) → Sites → **Add new site** → **Deploy manually**。
 3. 把 zip 拖進去，等 30 秒。會給你一個 `https://xxxx.netlify.app` 網址。
 4. 開網址 → 點 **⚙️ 設定** → 填 API Key → 開玩。
+
+或連 GitHub repo 自動部署：Netlify → New site from Git → 選 `pikmin-mrt-taipei`，build command 留空，publish dir = `/`。
 
 部署只需要這些檔：
 
