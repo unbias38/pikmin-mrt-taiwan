@@ -63,9 +63,66 @@ async function loadData() {
 
   state.stations = await fetch('data/stations.json').then(r => r.json());
   state.mapping  = await fetch('data/decor-mapping.json').then(r => r.json());
+  try {
+    state.ridership = await fetch('data/ridership.json').then(r => r.json());
+    computeRidershipStats();
+  } catch (e) {
+    state.ridership = null;
+  }
 
   await refreshPois();
   startPoisPolling();
+}
+
+// 計算全網運量分布（用最近月份），排序後算 percentile
+function computeRidershipStats() {
+  if (!state.ridership) return;
+  const months = state.ridership._meta.months;
+  const latest = months[months.length - 1];
+  const all = [];
+  Object.entries(state.ridership.stations).forEach(([name, m]) => {
+    const monthly = m[latest];
+    if (monthly?.entries) all.push({ name, entries: monthly.entries });
+  });
+  all.sort((a, b) => b.entries - a.entries);
+  const ranks = new Map();
+  all.forEach((s, i) => ranks.set(s.name, { rank: i + 1, percentile: (i + 1) / all.length }));
+  state.ridershipStats = {
+    latest,
+    ranks,
+    total: all.length,
+    avgEntries: all.reduce((s, x) => s + x.entries, 0) / all.length
+  };
+}
+
+// 5 級人潮指數
+function crowdLevel(percentile) {
+  if (percentile <= 0.20) return { level: 5, label: '🔥 熱門尖峰', color: '#ef4444' };
+  if (percentile <= 0.40) return { level: 4, label: '🔥 人潮較多', color: '#f59e0b' };
+  if (percentile <= 0.60) return { level: 3, label: '⚖️ 人潮中等', color: '#94a3b8' };
+  if (percentile <= 0.80) return { level: 2, label: '🌿 人潮偏少', color: '#10b981' };
+  return                       { level: 1, label: '💎 冷門好站', color: '#22d3ee' };
+}
+
+// Sparkline SVG（不依賴函式庫）
+function renderSparkline(values, w = 200, h = 36, color = '#10b981') {
+  if (!values.length) return '';
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  const range = max - min || 1;
+  const stepX = w / (values.length - 1 || 1);
+  const points = values.map((v, i) => {
+    const x = i * stepX;
+    const y = h - ((v - min) / range) * (h - 4) - 2;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  const last = values[values.length - 1];
+  const lastX = (values.length - 1) * stepX;
+  const lastY = h - ((last - min) / range) * (h - 4) - 2;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:${h}px">
+    <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="3" fill="${color}"/>
+  </svg>`;
 }
 
 async function refreshPois() {
@@ -210,6 +267,41 @@ function renderStationInfo(s) {
   const poiData = state.pois[s.id];
   document.getElementById('poiCount').textContent  = poiData?.count ?? '—';
   document.getElementById('decorCount').textContent = poiData ? Object.keys(poiData.summary).length : '—';
+
+  renderRidershipBlock(s);
+}
+
+function renderRidershipBlock(s) {
+  const el = document.getElementById('ridershipBlock');
+  if (!el) return;
+  const stat = state.ridership?.stations?.[s.name];
+  const meta = state.ridership?._meta;
+  if (!stat || !meta) {
+    el.classList.add('hidden');
+    return;
+  }
+  el.classList.remove('hidden');
+  const months = meta.months;
+  const monthly = months.map(m => stat[m]?.entries || 0);
+  const latest = monthly[monthly.length - 1];
+  const avg = monthly.reduce((s, v) => s + v, 0) / monthly.length;
+  const rankInfo = state.ridershipStats?.ranks.get(s.name);
+  const crowd = rankInfo ? crowdLevel(rankInfo.percentile) : null;
+
+  el.innerHTML = `
+    <div class="ridership-header">
+      <span class="ridership-title">📈 月運量趨勢（近 ${months.length} 個月）</span>
+      ${crowd ? `<span class="crowd-badge" style="background:${crowd.color}20;color:${crowd.color}">${crowd.label}</span>` : ''}
+    </div>
+    <div class="ridership-stats">
+      <div><span class="r-num">${(latest / 1000000).toFixed(2)}</span><span class="r-unit">M 進站（${months[months.length-1].slice(0,4)}/${months[months.length-1].slice(4)}）</span></div>
+      <div><span class="r-num">${(avg / 1000000).toFixed(2)}</span><span class="r-unit">M 月平均</span></div>
+      ${rankInfo ? `<div><span class="r-num">#${rankInfo.rank}</span><span class="r-unit">/ ${state.ridershipStats.total} 站排名</span></div>` : ''}
+    </div>
+    <div class="ridership-spark" title="${months.map((m,i)=>`${m.slice(0,4)}/${m.slice(4)}: ${(monthly[i]/1000000).toFixed(2)}M`).join('\n')}">
+      ${renderSparkline(monthly, 280, 40, crowd?.color || '#10b981')}
+    </div>
+  `;
 }
 
 function renderDecorList(s) {
@@ -428,26 +520,47 @@ function buildPrompt(s, poiData) {
     .filter(Boolean)
     .join('\n');
 
+  // 運量資訊
+  let ridershipInfo = '';
+  const rstat = state.ridership?.stations?.[s.name];
+  const rmeta = state.ridership?._meta;
+  const rankInfo = state.ridershipStats?.ranks.get(s.name);
+  if (rstat && rmeta && rankInfo) {
+    const months = rmeta.months;
+    const latest = months[months.length - 1];
+    const monthly = months.map(m => rstat[m]?.entries || 0);
+    const latestVal = monthly[monthly.length - 1];
+    const avg = monthly.reduce((s, v) => s + v, 0) / monthly.length;
+    const crowd = crowdLevel(rankInfo.percentile);
+    ridershipInfo = `
+【人潮資訊】
+- 最近月份（${latest.slice(0,4)}/${latest.slice(4)}）進站 ${(latestVal/1000000).toFixed(2)}M 人次
+- 近 ${months.length} 個月平均 ${(avg/1000000).toFixed(2)}M 人次
+- 全網運量排名 #${rankInfo.rank} / ${state.ridershipStats.total}（${crowd.label.replace(/^[^\\u4e00-\\u9fa5]+/, '')}）
+`;
+  }
+
   return `你是 Pikmin Bloom（皮克敏 Bloom）的散步達人，幫玩家規劃在台北捷運站附近散步的攻略。
 
 【目標站】${s.name}站（${s.lines.map(l => l.name + ' ' + l.ref).join('、')}）
 【範圍】800m 內
 【可拿 Decor 類別與對應 POI 數】
 ${decorList}
+${ridershipInfo}
 
 請用繁體中文，給出簡潔有用的攻略，包含：
 
 ## 一、本站亮點
-（這站值不值得專程來？最稀有 / 最有特色的 Decor 是哪幾種？）
+（這站值不值得專程來？最稀有 / 最有特色的 Decor 是哪幾種？人潮特性如何？）
 
 ## 二、推薦散步路線
 （建議 30 分鐘內可以走完的路線方向，例如「往北走可拿到較多咖啡，往南偏餐廳」）
 
 ## 三、最佳時段
-（早上/中午/晚上各有什麼適合的目標）
+（基於人潮資訊：早上/中午/晚上哪個時段最舒服？要避開尖峰嗎？）
 
 ## 四、注意事項
-（避開人潮的建議、或需要特別注意的事）
+（避開人潮的具體建議、或需要特別注意的事）
 
 風格要像一個熟識台北街頭的玩家朋友，不要太正經。控制在 400 字內。`;
 }

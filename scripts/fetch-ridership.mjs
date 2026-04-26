@@ -14,9 +14,11 @@ fs.mkdirSync(RAW_DIR, { recursive: true });
 const stations = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/stations.json'), 'utf8'));
 const stationNameSet = new Set(stations.map(s => s.name));
 
-// 站名正規化：去掉 BL/Y 之類的線別前綴
+// 站名正規化：去掉五大線前綴。Y(環狀線)/A(機捷) 的版本直接拒絕（我們只要五大線）
 function normalizeName(name) {
-  return String(name || '').replace(/^(BL|BR|R|G|O|Y)\s*/, '').trim();
+  const s = String(name || '').trim();
+  if (/^(Y|A)\s*/.test(s)) return null; // 環狀線、機捷直接跳過
+  return s.replace(/^(BL|BR|R|G|O)\s*/, '').trim();
 }
 
 // 取得目標月份清單（最近 12 個月）
@@ -63,7 +65,7 @@ function parseODS(filepath, ym) {
     for (let col = 1; col < header.length; col++) {
       const rawName = header[col];
       const norm = normalizeName(rawName);
-      if (!stationNameSet.has(norm)) continue; // 不在我們 109 站內
+      if (!norm || !stationNameSet.has(norm)) continue; // 不在我們 109 站內
       let sum = 0;
       for (let r = 1; r < rows.length; r++) {
         const v = rows[r][col];

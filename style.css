@@ -243,6 +243,38 @@ html, body {
 }
 .station-stats span { color: var(--accent); font-weight: 700; font-size: 14px; }
 
+/* Ridership block */
+.ridership-block {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.ridership-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.ridership-title { font-size: 12px; color: var(--text-2); }
+.crowd-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  border: 1px solid currentColor;
+}
+.ridership-stats {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.ridership-stats > div { display: flex; flex-direction: column; gap: 2px; }
+.r-num { font-size: 16px; font-weight: 700; color: var(--text-1); font-variant-numeric: tabular-nums; }
+.r-unit { font-size: 10px; color: var(--text-3); }
+.ridership-spark { margin-top: 4px; }
+
 /* Decor list */
 .decor-list {
   display: grid;
