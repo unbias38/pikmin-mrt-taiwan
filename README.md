@@ -14,6 +14,8 @@
 - 📊 **稀有度排行**：點頂部「📊 排行」看哪些站獨家有特定 Decor
 - 📍 **點 Decor 卡片** → 對應店家 pin 全部撒在地圖上（可疊加多種類別）
 - 💬 點 pin 看店名、地址、Google Maps 連結
+- 📈 **運量趨勢**：每站近 12 月進站人潮 sparkline + 5 級人潮指數（冷門好站 ↔ 熱門尖峰）
+- 🚶 **路線規劃**：起終點輸入 → OSRM 算步行路線 → 沿路 Decor + 車站運量分析
 - ✨ Google Gemini / OpenAI 雙 LLM 攻略生成（API Key 自備，存 localStorage）
 
 ## 部署到 Netlify（自架版）
@@ -86,8 +88,19 @@ node scripts/fetch-pois.mjs
 - LLM：Google Gemini / OpenAI GPT-5（前端直連）
 - 資料抓取：Node.js script + Overpass API
 
+## 重新抓運量資料
+
+`data/ridership.json` 是 12 個月各站進出量快照。半年/年更新一次：
+
+```bash
+node scripts/fetch-ridership.mjs
+```
+
+從 [metro.taipei 官方下載 ODS](https://www.metro.taipei/cp.aspx?n=FF31501BEBDD0136) 並解析。
+
 ## Roadmap
 
-- ✅ **Phase 1**：站點 × Decor 查詢（目前版本）
-- ⏳ **Phase 2**：路線規劃（起終點 + 步行導航 + Decor 圖層）
-- ⏳ **Phase 3**：整合捷運運量資料 → 「運量 × Pikmin 雙視角」（避開人潮 × 最大收穫）
+- ✅ **Phase 1**：站點 × Decor 查詢
+- ✅ **Phase 2**：路線規劃（起終點 + 步行 + Decor 圖層 + LLM 導覽）
+- ✅ **Phase 3**：運量整合（人潮指數 + sparkline + 路線整段運量分析）
+- ⏳ **Phase 4 構想**：散步圈型路線（A → 繞一圈 → A）、限時模式（給我 30 分鐘的路線）、跨年度同期比較
