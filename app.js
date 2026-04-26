@@ -142,7 +142,7 @@ function renderSparkline(values, w = 200, h = 36, color = '#10b981') {
 
 async function refreshPois() {
   try {
-    const fresh = await fetch('data/pois.json?t=' + Date.now()).then(r => {
+    const fresh = await fetch(`data/${state.city}/pois.json?t=` + Date.now()).then(r => {
       if (!r.ok) throw new Error('POI 檔尚未生成');
       return r.json();
     });
