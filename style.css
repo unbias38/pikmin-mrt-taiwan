@@ -426,6 +426,41 @@ html, body {
   .decor-count { font-size: 10px; }
 }
 
+/* 浮動 footer */
+.site-footer {
+  position: fixed;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--text-3);
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 500;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.site-footer strong { color: var(--text-2); font-weight: 600; }
+.site-footer a { color: var(--text-3); text-decoration: none; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer .sep { color: var(--bg-2); }
+
+@media (max-width: 480px) {
+  .site-footer {
+    bottom: 4px;
+    font-size: 10px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+}
+
 /* 手機橫向 / 平板：不堆疊但縮側邊欄 */
 @media (min-width: 769px) and (max-width: 1024px) {
   .layout { grid-template-columns: 1fr 320px; }

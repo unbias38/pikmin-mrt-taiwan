@@ -1231,10 +1231,23 @@ ${ridershipBlock}
 風格：像熟識台北街頭的玩家朋友，不要太正經，務實。控制在 500 字內。`;
 }
 
+// ─────────── 訪客計數 ───────────
+function initVisitorCounter() {
+  fetch('https://abacus.jasoncameron.dev/hit/pikmin-mrt-taipei/total')
+    .then(r => r.json())
+    .then(d => {
+      const n = d.value || 0;
+      const el = document.getElementById('visitorCount');
+      if (el) el.textContent = `${n.toLocaleString()} 次造訪`;
+    })
+    .catch(() => {});
+}
+
 // ─────────── 啟動 ───────────
 init().then(() => {
   initRanking();
   initModeTabs();
   initRoutePicker();
   initRouteAi();
+  initVisitorCounter();
 });

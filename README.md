@@ -80,11 +80,21 @@ node scripts/fetch-pois.mjs
 
 ## 資料來源與限制
 
-- **站點清單**：來自 OpenStreetMap，五大線 109 站（不含環狀線、機捷、輕軌）
+- **站點清單**：來自 OpenStreetMap (ODbL)，五大線 109 站（不含環狀線、機捷、輕軌）
 - **POI 資料**：[Overpass API](https://overpass-turbo.eu/) 抓 OSM 標記，800m 半徑
+- **運量資料**：臺北捷運公司公開[各站每日進出量 ODS](https://www.metro.taipei/cp.aspx?n=FF31501BEBDD0136)，每月聚合
 - **Decor 對照表**：`data/decor-mapping.json`，**社群觀察推測**（Niantic 沒公開官方分類，confidence 標 low 的代表不確定）
 
 實際遊玩可能與本表有出入，要修對照表直接編 `data/decor-mapping.json` 即可。
+
+## 授權與聲明
+
+- 程式碼：MIT License（見 [LICENSE](LICENSE)）
+- POI / 站點資料：**OpenStreetMap (ODbL)** © OSM contributors
+- 運量資料：**臺北大眾捷運股份有限公司**（公開資料）
+- 底圖：**CARTO Voyager** © OpenStreetMap, © CARTO
+
+**Pikmin Bloom 為任天堂 / Niantic 商標**。本工具為玩家社群非商業性輔助攻略，非官方產品，不附帶任何遊戲資源或檔案。Decor 對照表為社群觀察推測，可能與遊戲實際分類有差異，不代表 Niantic 官方立場。
 
 ## 技術棧
 
